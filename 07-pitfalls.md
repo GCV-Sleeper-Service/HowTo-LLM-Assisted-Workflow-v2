@@ -1,0 +1,36 @@
+# 7. Pitfalls you will meet
+
+**Twelve patterns, each with the signal that tells you it is happening and the one change that prevents it.** All twelve occurred on the source project; the first five were in version 1 of this guide, the rest were learned after it.
+
+| # | Pitfall | Recognition signal | Prevention |
+| --- | --- | --- | --- |
+| 1 | **Plausible narrative** — an elegant explanation is accepted without the one-line check that would falsify it | The explanation is more interesting than the observation | Confirm *what* before hypothesising *why*; one diagnostic command first (Ch. 2) |
+| 2 | **Forgotten recommendation** — a postmortem's action items are archived and never read again; the failure they predicted arrives weeks later | A recommendation exists in a document no prompt lists as required reading | Route every recommendation to an issue or the state file; no third option (Ch. 3) |
+| 3 | **Context-window cliff** — files outgrow what an agent can hold; fix cycles jump from 0–1 to 3+ and the operator responds with longer prompts | Rising fix cycles with no change in the kind of work | Split at ~2,000 lines; assemble artifacts; never edit generated files (Ch. 1) |
+| 4 | **Documentation drift** — plans reference paths and functions that moved two phases ago | A plan's date predates the last refactor | State file "stale documents" section; re-verify before use (Ch. 3) |
+| 5 | **Over-documentation** — the corpus grows, retrieval fails, defects do not fall | You cannot find a known lesson in 30 seconds | Five-layer model; promote findings up, never read layer 5 in execution (Ch. 3) |
+| 6 | **Audit arms race** — each incident adds an auditor, a reconciliation file, a self-report; verification cost overtakes production | Verification-to-production sessions ≥ 5:1; a batch produces reports and no code | Risk tiers; lint over prose; freeze rule; per-batch metrics (Ch. 5) |
+| 7 | **Doctrine attenuation** — rules multiply, compliance with any one rule falls | A new rule is added after an incident and the class recurs anyway | Rule budget: lint it and delete the prose; producer contract ≤150 lines (Ch. 5) |
+| 8 | **Code in prose** — a prompt embeds finished code that no compiler sees; two reviewers argue about declaration order | Prompts over ~20 KB with fenced source blocks | Compile before dispatch, or specify intent and let the agent write it (Ch. 4) |
+| 9 | **Memory records a plan as done** — a session's deliverables, closure commands, or "we decided" are noted as completed and never landed | Repository log and tracker show nothing after the date the note says work happened | Only the repository is state; restart protocol compares repo, docs, and last conversation (Ch. 3) |
+| 10 | **Calendar on a stale assumption** — a date is set to fix something already fixed, or to finish work sized by wishes | The calendar's gating item is not in the state file's open list | Check every gating item against the state file and the code; derive dates from cadence (Ch. 6) |
+| 11 | **Contradictory planning documents** — roadmap, phase plan, and decision log disagree; the newest conversation silently wins | Two documents give different orders or targets for the same phase | Source-of-truth ranking; a plan that changes a logged decision writes the superseding line first (Ch. 2, 3) |
+| 12 | **Infeasible as written** — a plan step assumes a platform capability that does not exist in the version you use | The step names a library feature without a citation to current documentation | Every hardware/platform claim in a plan cites a current source; research steps (no version bump) precede implementation (Ch. 6) |
+
+## Notes on the ones that hurt most
+
+**6 and 7 together are the stall pattern.** They feel like diligence. The tell is that the documents being produced are *about the process* rather than *about the product*: audits of prompts, audits of audits, reconciliations of audits, methodology reviews by four model families. Each was individually good. Together they cost four months. The exit is always the same: apply the fixes already written, freeze the meta-work, ship the lowest-risk step, measure.
+
+**8 is the one a compiler would have caught.** Two of three auditors found a declaration-order error in a prompt's embedded C++. The audit's own text said no automated check was possible without a real compile and put that out of scope. That scoping decision was the mistake. A syntax-only compile of the assembled fragment takes seconds and is deterministic; a prose review of C++ is neither.
+
+**9 is silent.** Nothing fails when a memory note or a chat summary says "issues closed" and they are not. The next session inherits a false state and plans on it. The only defence is that state claims are verified against the repository before use — every time, by every role.
+
+**12 looks like ambition.** On the source project a plan step assumed the firmware framework could act as a Zigbee coordinator while running a Wi-Fi access point for provisioning. The framework's documentation, checked four months later, said the component supports end-device and router roles only and that access-point mode with Zigbee is unsupported. The step had been sized, versioned, and sequenced. One citation would have moved it to a research step with a decision gate.
+
+## Early-warning dashboard
+
+Three numbers, checked at every phase closure, catch most of the twelve before they cost a phase:
+
+1. **Verification-to-production ratio** (sessions spent on audits and methodology ÷ sessions spent on steps that merge code). Above 2:1, look for pitfalls 6–7.
+2. **Fix cycles per step trend.** Rising without a change in work type: pitfall 3; rising after a new rule was added: pitfall 7.
+3. **Days since `Last verified`** in the state file. More than one step: pitfalls 4, 9, 10, 11 are all in play.
