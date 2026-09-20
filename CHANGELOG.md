@@ -2,11 +2,11 @@
 
 ## v2.0 — 2026-09 (rewrite)
 
-**Structure.** One README, seven chapters of 10–15 minutes each, a `templates/` folder you copy, and an `examples/` folder that cites the source project by path and commit. Version 1's 100 KB guide and eight raw project documents are superseded; keep them under `archive/v1/` if you want the history.
+**Structure.** One README, seven chapters of 10–15 minutes each, a `templates/` folder you copy, and an `examples/` folder that cites the source project by path and commit. Version 1's 100 KB guide and eight raw project documents are superseded.
 
 **New content, all from evidence after 2026-04-06 (the last v1 commit):**
 
-- Chapter 1: agent capability matrix; context-window arithmetic for file size and reading budgets; measured cost per step (7–8 LLM sessions, 1.5–3 h); why multi-vendor is a diversity decision, not a redundancy decision.
+- Chapter 1: agent capability matrix; context-window arithmetic for file size and reading budgets; measured cost per step (7–8 LLM sessions, 1.5–3 h); why multi-vendor is a diversity and failsafe decision, not a redundancy decision.
 - Chapter 2: in-PR deliverables as the merge gate (nothing documented "after merge"); risk tiers that set producer-side auditor counts and prompt style (reviewer count is a per-project constant); the source-of-truth hierarchy.
 - Chapter 3: the five-layer knowledge model with per-session reading budgets; handoff-inside-the-PR; restart-after-pause protocol (three sources that may disagree: repo, docs, last conversation); "memory recorded a plan as done" as a named failure.
 - Chapter 4: two prompt styles (prescriptive vs intent-and-acceptance) chosen by risk; "every embedded fact is a liability"; compile-before-dispatch for embedded code; measured values as placeholders; symbol anchors; tool side-effects in the scope whitelist.
