@@ -16,9 +16,9 @@ The table is blunt on purpose and deliberately. Why? Because every "cannot/do no
 | Translate a precise, bounded instruction into working code, tests, and matching docs | Hold state between sessions! Every session starts from zero and reconstructs the world from what you hand it |
 | Apply a __known to them pattern__ consistently across many files | Verify their own assumptions unless a command in the prompt forces it |
 | Find defects when given a focused specific checklist and a diff  | Resist a plausible explanation - they will build a sophisticated and easy to believe theory __before__ running the one-line check that falsifies it |
-| Run builds, tests, deployments, and post the output | Notice that a fact stated in the prompt can be stale — a wrong IP, a renamed file, a moved function is executed as written without checking first |
+| Run builds, tests, deployments, and post the output | Notice that a fact stated in the prompt can be stale - a wrong IP, a renamed file, a moved function is executed as written without checking first |
 | Write the tedious parts of documentation from real command output | Remember recommendations or requirements made in a previous session (first line above) - a recommendation not turned into a tracked item is gone! |
-| Review each other's work — different models catch different defect classes | "Optimise" a prompt safely, without affecting the quality/deliverables. When asked to shorten another model's prompt, they strip the safety constraints first! |
+| Review each other's work - different models catch different defect classes | "Optimise" a prompt safely, without affecting the quality/deliverables. When asked to shorten another model's prompt, they strip the safety constraints first! |
 
 The consequence for design: **the operator supplies factual and accurate context, bounded instructions, and verification gates; the agent supplies labour.** 
 
@@ -40,7 +40,7 @@ __One important note__ - context window size is dependent on many factors - mode
 
 ## 1.3 What a step costs
 
-The cost is measured basically in Operator's time spent on a step. Measured on the source ESP32 project, one merged step of runtime code — prompt, agent run, reviews, device test, merge — took **1.5–3 hours of operator time and 7–8 LLM sessions**. Sustained cadence over 25 days of runtime-firmware work was one merged step per 1.4 calendar days. Mechanical refactoring steps ran at three to six per day.
+The cost is measured basically in Operator's time spent on a step. Measured on the source ESP32 project, one merged step of runtime code - prompt, agent run, reviews, device test, merge - took **1.5–3 hours of operator time and 7–8 LLM sessions**. Sustained cadence over 25 days of runtime-firmware work was one merged step per 1.4 calendar days. Mechanical refactoring steps ran at three to six per day.
 
 Your numbers for your own project most likely will be different. But the important takeaway is following - the most expensive resource is your time. It is not tokens but the operator's attention during review orchestration as well as the high-capability model's rate limit and context window during planning. From these two rules emerge:
 
@@ -49,7 +49,7 @@ Your numbers for your own project most likely will be different. But the importa
 
 ## 1.4 Why more than one vendor and models
 
-Not for redundancy — for diversity and failsafe. On the source project one reviewer caught roughly 60 % of defects, three caught ~85 %, five ~92 %, and the incremental catches from reviewers four and five were rare but occasionally critical (example - a socket-level security defect found just by one reviewer from five). Different model families fail differently; the same family reviewing its own output shares its blind spots. So - employ different models from different vendors.
+Not for redundancy - for diversity and failsafe. On the source project one reviewer caught roughly 60 % of defects, three caught ~85 %, five ~92 %, and the incremental catches from reviewers four and five were rare but occasionally critical (example - a socket-level security defect found just by one reviewer from five). Different model families fail differently; the same family reviewing its own output shares its blind spots. So - employ different models from different vendors.
 
 The price is the time spent on reviews: triggering five reviewers on three platforms and correlating their findings took 30–60 minutes per step.
 
@@ -63,7 +63,7 @@ You - __the Operator__ - are the driver behind the wheel, not a passenger. Here 
 - decide every merge
 - and maintain the one file that tells the next session where things stand. 
 
-**If you cannot give a project that attention on the days it runs, this/guide method degrades into UNVERIFIED/UNTESTED/UNCONFIRMED agent output — which is WORSE than doing development with no agents - see the [One warning-recommendation by the author in the readme](README.md#one-warning-recommendation-by-the-author).**
+**If you cannot give a project that attention on the days it runs, this/guide method degrades into UNVERIFIED/UNTESTED/UNCONFIRMED agent output - which is WORSE than doing development with no agents - see the [One warning-recommendation by the author in the readme](README.md#one-warning-recommendation-by-the-author).**
 
 > **From the source project.** The operator's own note after four months: "this is interesting... the sessions that produce prompts for the coding agents did not themselves follow the guide they produced!"
 
@@ -73,7 +73,7 @@ The agents had done exactly what the prompts said. But the prompts were wrong! C
 
 - [ ] Every generated artifact has a source and a build step; nobody edits artifacts
 - [ ] No source file over ~2,000 lines. If more than that, a refactoring step is your first step
-- [ ] The operators and the agent operate in the same environment - a build, a test suite, and a deployment for example can run from a shell — agents will run them as well
+- [ ] The operators and the agent operate in the same environment - a build, a test suite, and a deployment for example can run from a shell - agents will run them as well
 - [ ] Roles assigned to models: Planner model, Runner/Coder and Reviews (see Chapter 2)
 - [ ] `CURRENT-STATE.md`, `AGENTS.md`, a decision log, and CI path filtering exist (see templates in this repo)
 - [ ] __Write down__ your plans and a realistic cadence target (start from 1 step per 1–2 days for anything that touches runtime behavior)
