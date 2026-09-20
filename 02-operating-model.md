@@ -65,7 +65,7 @@ The tier is the only lever that keeps *producer-side* verification cost proporti
 
 ## 2.5 Source-of-truth hierarchy
 
-Source of truth was mentioned number and times and one should not underestimate importance of it. When two sources disagree — and they will — resolve dispute in this order and make following list as a discipline:
+Source of truth was mentioned number of times and one should not underestimate importance of it. When two sources disagree — and they will — resolve dispute in this order and make following list as a discipline:
 
 1. Live code on the main branch - this trumps eveything
 2. Build output, test results, telemetry, measurements from the running system
