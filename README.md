@@ -1,4 +1,4 @@
-# AI (LLM)-Assisted Software Development — A Working Method (v2)
+# AI (LLM)-Assisted Software Development - A Working Method (v2)
 
 **Why this guide exists.** It is deep conviction of the author of the project that people who will engage with agentic AI software development sooner or later will release necessity of similar guide for their own project. Thus the purpose of this guide - to save them time and flustration and offer something that works - a project-agnostic guide for building software with AI architecting and coding agents from more than one vendor, without losing control of quality, state, or your own time. 
 
@@ -25,7 +25,7 @@ With the above said...
 | --- | --- | --- |
 | 1 | [Before you start](01-before-you-start.md) | Limitations - what AI agents can and cannot do, why context windows decide your file sizes, and what the method costs per step |
 | 2 | [The operating model](02-operating-model.md) | Project hierarchy: phases → steps → one PR each; five roles you assign to AI agents across several vendors; determine the only source of truth - the pull request  |
-| 3 | [State and continuity](03-state-and-continuity.md) | Continuity - how a new session knows where the last one stopped, without you re-explaining the project to AI — and how to restart after a long pause |
+| 3 | [State and continuity](03-state-and-continuity.md) | Continuity - how a new session knows where the last one stopped, without you re-explaining the project to AI - and how to restart after a long pause |
 | 4 | [Writing prompts that hold](04-writing-prompts.md) | The ten-section prompt, checkpoints that stop instead of "fixing", scope guards, and when to prescribe code versus specify intent |
 | 5 | [Keeping the prompt-writer honest](05-keeping-the-producer-honest.md) | Examines why the session that writes prompts drifts from its own rules, and the mechanical gates (not more prose) that stop it |
 | 6 | [Review, verify, close](06-review-verify-close.md) | Multi-reviewer pipelines, evidence over opinion, phase closure, KPIs, and calendars derived from measured cadence |
@@ -50,13 +50,13 @@ The full list is in [CHANGELOG.md](CHANGELOG.md).
 | Measure | Before the method | With the method |
 | --- | --- | --- |
 | Fix cycles per step (review rounds after the first PR) | 2–6 | 0–1 on refactoring phases; ≈1.0 on runtime-firmware phases |
-| Sustained cadence, runtime-firmware steps | — | one merged step per ~1.4 calendar days; ~3 h operator time per step |
+| Sustained cadence, runtime-firmware steps | - | one merged step per ~1.4 calendar days; ~3 h operator time per step |
 | Largest file an agent could edit reliably | failed above ~800 lines | monoliths (4,300-line header, 4,000-line JS) split into 8–12 fragments |
 | Defect classes stopped by CI lint | 0 | 7 rule classes (stale IPs, filenames, forbidden section titles, cross-prompt references, ordering) |
 
 ## Origin
 
-This guide grew out of the [ESP32-GW-multi-sensor](https://github.com/GCV-Sleeper-Service/ESP32-GW-multi-sensor) project — a multi-board BLE sensor gateway with an embedded dashboard, built on ESPHome/ESP-IDF, developed by one operator directing Claude, GitHub Copilot, OpenAI Codex, Gemini, and Perplexity in defined roles. The project's own methodology documents (`Docs/development-process-guide.md`, `Docs/writing-guide/`, `Docs/llm-assisted-development-guide.md`, `Docs/templates/`) are the primary sources; the `examples/` folder cites them by path and commit.
+This guide grew out of the [ESP32-GW-multi-sensor](https://github.com/GCV-Sleeper-Service/ESP32-GW-multi-sensor) project - a multi-board BLE sensor gateway with an embedded dashboard, built on ESPHome/ESP-IDF, developed by one operator directing Claude, GitHub Copilot, OpenAI Codex, Gemini, and Perplexity in defined roles. The project's own methodology documents (`Docs/development-process-guide.md`, `Docs/writing-guide/`, `Docs/llm-assisted-development-guide.md`, `Docs/templates/`) are the primary sources; the `examples/` folder cites them by path and commit.
 
 ## License
 
