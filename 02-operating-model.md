@@ -6,13 +6,13 @@ Then the roles assigned to AI agents usually on different vendors' models. Plus 
 
 ## 2.1 Phases, steps, pull requests
 
-- A **phase** has one theme — a feature, a refactor, or a stabilization effort (read - complex bug fixing) — and 6–12 steps, depending on complexity. Remember - mixing themes in a phase is the reliable way to get scope creep and confused agents and more time wasted as a result.
+- A **phase** has one theme - a feature, a refactor, or a stabilization effort (read - complex bug fixing) - and contains 6–12 steps, depending on phase complexity. Remember - mixing themes in a phase is the reliable way to get scope creep and confused agents and more time wasted as a result.
 - A **step** is one PR with a bounded scope, its own prompt bundle (see Chapter 4), a risk tier, and a version tag when it changes shipped behavior. Note - research steps produce a document and way forward and no version bump.
 - A **PR** is considered done when it contains the code *and* *every* deliverable of the step: state-file update, changelog entry, session log, consolidated audit, and any edits the next step's prompt needs. Post-merge work should be limited to tagging and closing issues.
 
-> **Why in-PR.** Here is a lesson from the source project with the attempt to put documentation "after merge". Result was that within one phase the state file was a step behind, prompts referenced stale IP addresses, and the operator opened "documentation update" PRs the day after merges. The rule that fixed it: *if you find yourself opening a docs PR the day after a merge, that is the drift the in-PR rule above prevents.*
+> **Why all in-PR.** Here is a lesson from the source project with the attempt to put documentation "after merge". Result was that within one phase the state file was a step behind, prompts referenced stale IP addresses, and the operator opened "documentation update" PRs the day after merges. The rule that fixed it: *if you find yourself opening a docs PR the day after a merge, that is the drift the in-PR rule above prevents.*
 
-## 2.2 Five roles defined in the lifecycle of the project
+## 2.2 Five roles (AI and human) defined in the lifecycle of the project
 
 | Role | What it does | Typical assignment | Rule |
 | --- | --- | --- | --- |
@@ -65,7 +65,7 @@ The tier is the only lever that keeps *producer-side* verification cost proporti
 
 ## 2.5 Source-of-truth hierarchy
 
-Source of truth was mentioned number of times and one should not underestimate importance of it. When two sources disagree — and they will — resolve dispute in this order and make following list as a discipline:
+Source of truth was mentioned number of times and one should not underestimate importance of it. When two sources disagree - and they will - resolve dispute in this order and make following list as a discipline:
 
 1. Live code on the main branch - this trumps eveything
 2. Build output, test results, telemetry, measurements from the running system
@@ -79,7 +79,7 @@ Source of truth was mentioned number of times and one should not underestimate i
 
 Archived documents are evidence, not instructions. Any plan older than the last refactoring phase is stale until re-verified. A chat transcript in which "we decided X" is level 9 from the list above, until X is in the repository.
 
-> **From the source project.** Three sources disagreed about whether the project's critical crash bug was fixed: the state file and the merged code said yes; the agent instructions, the lessons file, and the decision log said "deferred". A planning calendar was then written on the assumption it was still open. The hierarchy above settles it in ten seconds — level 1 wins. And the fix for disagreement is to fix the documentation as a PR, not a firmware phase PR.
+> **From the source project.** Three sources disagreed about whether the project's critical crash bug was fixed: the state file and the merged code said yes; the agent instructions, the lessons file, and the decision log said "deferred". A planning calendar was then written on the assumption it was still open. The hierarchy above settles it in ten seconds - level 1 wins. And the fix for disagreement is to fix the documentation as a PR, not a firmware phase PR.
 
 ## 2.6 Truth-seeking as a named discipline
 
@@ -87,13 +87,13 @@ Follow these four rules, applied in every planning, debugging, and review sessio
 
 1. **Confirm `what` before hypothesizing `why`.** Run one diagnostic command - this will save you time and recourses instead spending them for explanation. 
 2. **Eliminate the simplest explanation first.** Or, to say differently - Don't Complicate Things Beyond Necessity (Occam's Razor!) - if you got an elegant theory explaining something, this is the signal to run the some basic checks first (see rule above).
-3. **State assumptions and confirm/verify each of them.** "I assume X because Y" — this means: run a command that tests X. If it cannot be tested, label it as `UNVERIFIED ASSUMPTION` in the output and deal with it accordingly.
-4. **When evidence and narrative diverge, evidence always wins** — that's by the way, includes not only AI's narrative (explaining something very plausible and believable), but when the narrative is your own!
+3. **State assumptions and confirm/verify each of them.** "I assume X because Y" - this means: run a command that tests X. If it cannot be tested, label it as `UNVERIFIED ASSUMPTION` in the output and deal with it accordingly.
+4. **When evidence and narrative diverge, evidence always wins** - that's by the way, includes not only AI's narrative (explaining something very plausible and believable), but when the narrative is your own!
 
 Evidence strength, strongest first: direct measurement → source inspection → current documentation → historical documentation → human memory → model inference. Anything that affects production needs the first two.
 
 > **From the source project.** The author again feels obligated to stress the following: hypothesizing of what is happening could start ONLY after facts have been confirmed and verified. 
 > Below is the output from the Prompt Producer (high capable Frontier Model) delivered when confronted with the reality that it made up facts:
-> > The architecture-conditional stack hypothesis (RISC-V needs 20KB vs Xtensa 16KB) was a *plausible-sounding* explanation that nobody — myself included — stress-tested against the simplest alternative: "the C3 just doesn't have the override compiled in." The evidence was there: `grep -c 'external_components' firmware/esp32-c3-multi-sensor.yaml` would have returned 0 at any point. A 30-second check would have saved the entire investigation.
+> > The architecture-conditional stack hypothesis (RISC-V needs 20KB vs Xtensa 16KB) was a *plausible-sounding* explanation that nobody - myself included - stress-tested against the simplest alternative: "the C3 just doesn't have the override compiled in." The evidence was there: `grep -c 'external_components' firmware/esp32-c3-multi-sensor.yaml` would have returned 0 at any point. A 30-second check would have saved the entire investigation.
 
 So... check _facts_ before hypothesis... 
