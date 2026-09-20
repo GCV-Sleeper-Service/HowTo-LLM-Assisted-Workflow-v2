@@ -1,19 +1,24 @@
 # 1. Before you start
 
-**Decide three things before the first prompt: what each agent is allowed to do, how big a file an agent may edit, and how many sessions per step you can afford.** Everything else in this guide is downstream of those three.
+**Decide three things before the first prompt: **
+- what each agent is allowed to do
+- how big a file an agent may edit
+- how many sessions per step you will need and can afford
+
+Everything else in this guide is downstream of those three.
 
 ## 1.1 What agents can and cannot do
 
-The table is deliberately blunt. Every "cannot" row cost the source project at least one day.
+The table is blunt on purpose and deliberately. Why? Because every "cannot/do not" in the rows below cost the source project at least one day wasted.
 
 | Agents reliably do | Agents reliably do not |
 | --- | --- |
-| Turn a precise, bounded instruction into working code, tests, and matching docs | Hold state between sessions — every session starts from zero and reconstructs the world from what you hand it |
-| Apply a known pattern consistently across many files | Verify their own assumptions unless a command in the prompt forces it |
-| Find defects when given a focused checklist and a diff | Resist a plausible explanation; they will build a sophisticated theory before running the one-line check that falsifies it |
-| Run builds, tests, deployments, and post the output | Notice that a fact in the prompt is stale — a wrong IP, a renamed file, a moved function is executed as written |
-| Write the tedious parts of documentation from real command output | Remember recommendations made in a previous session; a recommendation not turned into a tracked item is gone |
-| Review each other's work — different models catch different defect classes | "Optimise" a prompt safely; asked to shorten another model's prompt, they strip the safety constraints first |
+| Translate a precise, bounded instruction into working code, tests, and matching docs | Hold state between sessions! Every session starts from zero and reconstructs the world from what you hand it. |
+| Apply a __known to them pattern__ consistently across many files | Verify their own assumptions unless a command in the prompt forces it |
+| Find defects when given a focused specific checklist and a diff  | Resist a plausible explanation - they will build a sophisticated and easy to believe theory __before__ running the one-line check that falsifies it |
+| Run builds, tests, deployments, and post the output | Notice that a fact stated in the prompt can be stale — a wrong IP, a renamed file, a moved function is executed as written without checking first |
+| Write the tedious parts of documentation from real command output | Remember recommendations or requirements made in a previous session (see the first line entry) - a recommendation not turned into a tracked item is gone |
+| Review each other's work — different models catch different defect classes | "Optimise" a prompt safely, without affecting the quality/deliverables. When asked to shorten another model's prompt, they strip the safety constraints first! |
 
 The consequence for design: **the operator supplies accurate context, bounded instructions, and verification gates; the agent supplies labour.** When one of the three is missing the output is confident, plausible, and wrong.
 
