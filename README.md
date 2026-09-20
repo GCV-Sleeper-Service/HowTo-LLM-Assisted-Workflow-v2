@@ -4,7 +4,7 @@
 
 Every rule in the guide was taken from a real project: an open-source ESP32 sensor-gateway firmware developed almost entirely through AI agents that started  early 2026. The project by September 2026 (at the moment of writing this guide) has 230+ pull requests, more than ten development phases, six LLM platforms in five roles, and had quite number of setbacks that taught more than the successes did.
 
-**Who this is for.** An architect-engineer, or a small team, who wants AI agents to do most of the coding while a human keeps the architecture, the evidence, and the merge button. Assumptions - you can read code and run a build. The guide is designed to be agnostic - it does not assume any particular language, framework, or vendor.
+**Who this is for.** An architect-engineer, or a small team, who wants AI agents to do most of the coding while a human keeps the architecture, the evidence, and controls the merge button. Assumptions - you can read code and run a build. The guide is designed to be agnostic - it does not assume any particular language, framework, or vendor.
 
 **How to read it.** Guide has seven chapters, on each you spend about 10–15 minutes to read. Read chapters 1–3 before you start a project, go to chapters 4–5 when you write your first prompts, finally - to chapters 6–7 when your first phase closes. 
 The `templates/` folder is what you use for your repo.
