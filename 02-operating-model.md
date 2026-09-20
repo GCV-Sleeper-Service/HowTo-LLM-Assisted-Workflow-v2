@@ -10,7 +10,7 @@ Then the roles assigned to AI agents usually on different vendors' models. Plus 
 - A **step** is one PR with a bounded scope, its own prompt bundle (see Chapter 4), a risk tier, and a version tag when it changes shipped behavior. Note - research steps produce a document and way forward and no version bump.
 - A **PR** is considered done when it contains the code *and* *every* deliverable of the step: state-file update, changelog entry, session log, consolidated audit, and any edits the next step's prompt needs. Post-merge work should be limited to tagging and closing issues.
 
-> **Why in-PR.** Here is a lesson from the source project with the attempt put documentation "after merge". Result was that within one phase the state file was a step behind, prompts referenced stale IP addresses, and the operator opened "documentation update" PRs the day after merges. The rule that fixed it: *if you find yourself opening a docs PR the day after a merge, that is the drift the in-PR rule above prevents.*
+> **Why in-PR.** Here is a lesson from the source project with the attempt to put documentation "after merge". Result was that within one phase the state file was a step behind, prompts referenced stale IP addresses, and the operator opened "documentation update" PRs the day after merges. The rule that fixed it: *if you find yourself opening a docs PR the day after a merge, that is the drift the in-PR rule above prevents.*
 
 ## 2.2 Five roles defined in the lifecycle of the project
 
