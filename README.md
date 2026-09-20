@@ -9,6 +9,16 @@ Every rule in the guide was taken from a real project: an open-source ESP32 sens
 **How to read it.** Guide has seven chapters, on each you spend about 10–15 minutes to read. Read chapters 1–3 before you start a project, go to chapters 4–5 when you write your first prompts, finally - to chapters 6–7 when your first phase closes. 
 The `templates/` folder is what you use for your repo.
 
+## One warning-recommendation by the author
+
+To readers of this guide - if you have only one rule to remember when doing AI-assisted software development, it it would be the following:
+
+__Don't trust AI outputs implicitly!__
+
+The author can't stress the above rule strong enough! You must architect your systems and projects such a way to **treat AI outputs as untrusted external services.** You **must know** what is the expected output with every step and thus need to build verification layers, fallback paths, circuit breakers, and audit logs into any system that acts on model outputs. 
+
+With the above said...
+
 ## The chapters
 
 | # | Chapter | The one thing it settles |
