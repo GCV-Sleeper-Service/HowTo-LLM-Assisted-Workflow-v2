@@ -1,16 +1,28 @@
 # 6. Review, verify, close
 
-**Reviews find what prompts missed; evidence from the running system settles what reviews cannot; closure turns both into the next phase's starting point.** Calendars come out of measured cadence, never out of wishes.
+One thing is desire/wishes, the second - reality. Calendars come out of on past experience that is a measured cadence, never out of wishes. 
 
-## 6.1 The review pipeline
+Here is the observation:
 
-Five reviews per code step, in this order: three inline reviewers on the PR platform (different model families), then two external whole-PR reviewers on other platforms, then — when the tooling cooperates — one structured multi-turn review that produces the consolidated audit. That is the source project's default and it does not change with the risk tier; the tier changes producer-side audits and prompt style (Chapter 2.4). A project may set a different default, but it sets it once.
+- Reviews find what prompts missed
+- Evidence from the running system settles what reviews cannot
+- Closure turns both of them into the next phase's starting point.
+
+## 6.1 How reviews work - the review pipeline
+
+The working order of reviews (and not just code created by the coding agent) is following - five reviews per code step, in this order: 
+
+- Three online automated AI reviewers on the PR platform once PR is created and made ready for review (for the source project different AI model families were used on Github)
+- After that: two external whole-PR reviewers on other platforms
+- Finally one structured multi-turn review that produces the consolidated audit. 
+
+Above was the source project's default and it does not change with the risk tier. The tier changes producer-side audits and prompt style (see Chapter 2.4). A project may set a different default, but it sets it once.
 
 After the inline reviews land, the coding agent gets one instruction, verbatim every time:
 
 > Please analyze the code reviews and comments for the PR. Assess if they are warranted; if yes, implement the necessary fixes. Post a comment summarizing your assessment.
 
-Assess-then-fix matters. Reviewers are sometimes wrong (a reviewer on the source project flagged a "wire-format regression" that the pre-existing code already produced); an agent that implements every finding will damage the code as often as it improves it. The agent's assessment comment — warranted / not warranted / not actionable, with reasons — is part of the audit trail.
+Assess-then-fix matters. Reviewers are sometimes wrong (a reviewer on the source project flagged a "wire-format regression" that the pre-existing code already produced); an agent that implements every finding will damage the code as often as it improves it. The agent's assessment comment - warranted / not warranted / not actionable, with reasons - is part of the audit trail.
 
 External reviewers get a structured prompt: classify findings by severity, check each acceptance criterion, quote offending content verbatim, propose a concrete fix. "Looks good" is not a review.
 
@@ -37,13 +49,13 @@ No reviewer catches a heap exhaustion that appears after three weeks of data, a 
 
 Every phase ends with one closure step whose PR contains:
 
-1. Issue sweep — every open issue tagged to the phase classified resolved / deferred (to a named milestone) / new
+1. Issue sweep - every open issue tagged to the phase classified resolved / deferred (to a named milestone) / new
 2. Plan-versus-delivery comparison and a review-findings summary: what did reviewers catch that prompts should have prevented?
-3. New lessons and critical rules — and the lint rules that let old prose rules be deleted
+3. New lessons and critical rules - and the lint rules that let old prose rules be deleted
 4. Method update: new failure patterns into the pitfalls list, checkpoint learnings into the prompt template
 5. State file re-verified: `Last verified` date, open issues, stale documents, unimplemented recommendations
 6. KPI row appended (§6.5) and the models/tools used recorded, with any behaviour change noticed
-7. Every recommendation routed — issue or state-file entry, no third option
+7. Every recommendation routed - issue or state-file entry, no third option
 
 Skipping closure is how the source project arrived at a plan that contradicted its decision log and a calendar that assumed an already-fixed bug was open.
 
@@ -64,7 +76,7 @@ Capture timestamps when they happen, not reconstructed at closure.
 
 Derive dates from measured throughput, not from the plan's step count:
 
-1. Count merged steps and calendar days over the last comparable stretch (same kind of work — refactoring steps run three to six times faster than runtime steps).
+1. Count merged steps and calendar days over the last comparable stretch (same kind of work - refactoring steps run three to six times faster than runtime steps).
 2. Multiply remaining steps by the measured days per step; add the plan's own per-step estimates where they are higher.
 3. State the uncertainty. On the source project it was ±40 %, dominated by review-round count on high-tier steps (one PR took four rounds) and by irreversible steps that must not be compressed.
 4. Publish the fallback calendar for reduced availability at the same time (×1.6 for three sessions a week instead of five).
