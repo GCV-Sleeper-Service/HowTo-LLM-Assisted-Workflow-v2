@@ -10,7 +10,7 @@ There are two styles, chosen by risk tier. Both use the same ten-section skeleto
 
 1. **Agent prompt** - the instructions the coding agent executes.
 2. **Two-step prompt** - the agent setup block the operator pastes first, plus the reviewer checklist keyed to this step's changes.
-3. **Session handoff** - state snapshot, risk table, what carries forward (described in the Chapter 3).
+3. **Session handoff** - state snapshot, risk table, what carries forward (described in the [Chapter 3](03-state-and-continuity.md)).
 
 Producing the bundle is __the__ most expensive part of a step and the place where quality is decided: a precise bundle merges on the first attempt; a vague one costs three to six review rounds and wasted time. 
 
@@ -75,7 +75,7 @@ Observation: IPs, filenames, function signatures, delay constants, struct sizes,
 
 Rules that help to avoid such problems:
 
-- **Extract at production time, from the state file or a live grep - never from memory.** Chapter 5 makes this a gate.
+- **Extract at production time, from the state file or a live grep - never from memory.** [Chapter 5](05-keeping-the-producer-honest.md) makes this a gate.
 - **Pin every numeric constant** to either a measurement procedure the agent runs or a live source the prompt greps. A changelog template that pre-fills "(36 bytes)" is a defect; `(<MEASURED> bytes)` with the measurement step is correct one.
 - **Anchor by symbol, not line number.** `firmware/core/nvs-persistence.h: maybe_yield_nvs_scan_()` plus a re-verify grep survives every merge; `nvs-persistence.h:248` is wrong by the next one.
 - **Fewer facts beat more checks.** The alternative - verification tables and auditors per fact - is an arms race you lose on cost and time.
