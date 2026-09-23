@@ -12,7 +12,7 @@ So - review, verify, confirm. Then move on to the next step.
 
 The working order of code reviews is five reviews per step, in the following sequence: 
 
-- Three online automated AI reviewers on the PR platform once PR is created and made ready for review (for the source project repo is on GitHub with different AI model families for codereviews)
+- Three online automated AI reviewers on the PR platform once PR is created and made ready for review (for the source project repo is on GitHub with different AI model families for code reviews)
 - After that: two external whole-PR reviewers on other platforms
 - Finally one structured multi-turn review that produces the consolidated audit 
 
@@ -20,11 +20,11 @@ Above was the source project's default and it does not change with the risk tier
 
 After the inline reviews land, the coding agent gets a single line instruction, which is the same every time:
 
-> Please analyze the code reviews and comments for the PR. Assess if they are warranted; if yes, implement the necessary fixes. Post a comment in PR summarizing your assessment and work permormed.
+> Please analyze the code reviews and comments for the PR. Assess if they are warranted; if yes, implement the necessary fixes. Post a comment in PR summarizing your assessment and work performed.
 
-Important: assess-then-fix matters. Here is why - reviewers are sometimes wrong. An agent that _blindly_, without confirmation implements every finding by reviewers will damage the code and make things worse (read - more time wasted fixed things) as often as it improves it. The agent's assessment comment - warranted / not warranted / not actionable, with reasons - is part of the audit trail.
+Important: assess-then-fix matters. Here is why - reviewers are sometimes wrong. An agent that _blindly_, without confirmation implements every finding by reviewers will damage the code and make things worse (read - more time wasted fixing things) as often as it improves it. The agent's assessment comment - warranted / not warranted / not actionable, with reasons - is part of the audit trail.
 
-External reviewers also get the same structured prompt: classify findings by severity, check each acceptance criteria and propose a concrete fix. "Looks good" is not a review - it is a prose. Review assess if implementation reaches the intended, pre defined goals that are measurable.
+External reviewers also get the same structured prompt: classify findings by severity, check each acceptance criterion and propose a concrete fix. "Looks good" is not a review. A review assesses if implementation reaches the intended, predefined goals that are measurable.
 
 ## 6.2 The consolidated audit
 
@@ -56,7 +56,7 @@ Every phase ends with one closure step whose PR contains:
 3. New lessons and critical rules - and the lint rules that let old prose rules be deleted
 4. Method update: new failure patterns into the pitfalls list, checkpoint learnings into the prompt template
 5. State file re-verified: `Last verified` date, open issues, stale documents, unimplemented recommendations
-6. KPI row appended (see the 6.5 below) and the models/tools used recorded, with any behavour change noticed
+6. KPI row appended (see the 6.5 below) and the models/tools used recorded, with any behaviour change noticed
 7. Every recommendation routed: issue or state-file entry, no third option
 
 Lesson to learn: skipping closure is how the source project arrived at a plan that contradicted its decision log and a calendar that assumed an already-fixed bug was open.
