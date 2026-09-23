@@ -1,10 +1,10 @@
 # AI (LLM)-Assisted Software Development - A Working Method (v2)
 
 By **Irakli Natsvlishvili** · [LinkedIn](https://www.linkedin.com/in/irakli) · September 2026
-   
-**Why this guide exists.** It is deep conviction of the author of the project that people who will engage with agentic AI software development sooner or later will release necessity of similar guide for their own project. Thus the purpose of this guide - to save them time and flustration and offer something that works - a project-agnostic guide for building software with AI architecting and coding agents from more than one vendor, without losing control of quality, state, or your own time. 
 
-Every rule in the guide was taken from a real project: an open-source ESP32 sensor-gateway firmware developed almost entirely through AI agents that started  early 2026. The project by September 2026 (at the moment of writing this guide) has more than 180 pull requests, more than ten development phases, six LLM platforms in five roles, and had quite number of setbacks that taught more than the successes did.
+**Why this guide exists.** It is deep conviction of the author of the project that people who will engage with agentic AI software development sooner or later will release they need similar guide for their own project. Thus the purpose of this guide - to save them time and frustration and offer something that works - a project-agnostic guide for building software with AI architecting and coding agents from more than one vendor, without losing control of quality, state, or your own time. 
+
+Every rule in the guide was taken from a real project: an open-source ESP32 sensor-gateway firmware developed almost entirely through AI agents that started early 2026. The project by September 2026 (at the moment of writing this guide) has more than 180 pull requests, more than ten development phases, six LLM platforms in five roles, and had quite number a of setbacks that taught more than the successes did.
 
 **Who this is for.** An architect-engineer, or a small team, who wants AI agents to do most of the coding while a human keeps the architecture, the evidence, and controls the merge button. Assumptions - you can read code and run a build. The guide is designed to be agnostic - it does not assume any particular language, framework, or vendor.
 
@@ -13,13 +13,13 @@ The `templates/` folder is what you use for your repo.
 
 ## One warning-recommendation by the author
 
-To readers of this guide - if you have only one rule to remember when doing AI-assisted software development, it it would be the following:
+To readers of this guide - if you have only one rule to remember when doing AI-assisted software development, it would be the following:
 
 __Don't trust AI outputs implicitly!__
 
-The author can't stress the above rule strong enough! 
+The author can't stress the above rule strongly enough! 
 
-You __must__ architect your systems and projects such a way to **treat AI outputs as untrusted external services.** You **must know** what is the expected output with every step and thus need to build verification layers, fallback paths, circuit breakers, and audit logs into any system that acts on model outputs. 
+You __must__ architect your systems and projects in such a way to **treat AI outputs as untrusted external services.** You **must know** what is the expected output with every step and thus need to build verification layers, fallback paths, circuit breakers, and audit logs into any system that acts on model outputs. 
 
 With the above said...
 
@@ -39,10 +39,10 @@ Then: [`templates/`](templates/) (state file, prompt skeleton, handoff, decision
 
 ## What changed from version 1
 
-Version 1 (written in April 2026) was a 100 KB practitioner's guide developed during the project, as well as raw project documents. It described a method that worked for refactoring phases. However it broke on the next feature phase: the prompt-writing sessions stopped following the guide they were given - four rounds of audits found the defects in the produced promts, the fixes were documented and never applied. Version 2 of the guide is rewritten with the following in mind:
+Version 1 (written in April 2026) was a 100 KB practitioner's guide developed during the project, as well as raw project documents. It described a method that worked for refactoring phases. However it broke on the next feature phase: the prompt-writing sessions stopped following the guide they were given - four rounds of audits found the defects in the produced prompts, the fixes were documented and never applied. Version 2 of the guide is rewritten with the following in mind:
 
 - Every fact embedded in a prompt is a liability; the method now minimises facts and pins each one to a live query.
-- Rules need to been forced by a linter instead of written as prose that attenuate with volume: defect classes that got a lint rule stopped recurring; those expressed as "read the guide more carefully" recurred every time.
+- Rules need to been enforced by a linter instead of written as prose that attenuate with volume: defect classes that got a lint rule stopped recurring; those expressed as "read the guide more carefully" recurred every time.
 - A prompt that contains finished code has moved verification from the compiler to human reviewers. Compile it before dispatch, or specify intent and let the agent write it.
 - Verification effort must be tiered by risk, or it grows until it exceeds production effort and the project stops.
 - State lives in the repository that is the fact and source of truth. Chat memory, planning notes, and "we decided" are not state until they are committed.
