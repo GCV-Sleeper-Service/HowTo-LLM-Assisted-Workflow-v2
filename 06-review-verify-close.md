@@ -85,5 +85,3 @@ Derive dates from measured throughput, not from the plan's step count:
 3. State the uncertainty. On the source project it was ±40 %, dominated by review-round count on high-tier steps (one PR took four rounds) and by irreversible steps that must not be compressed.
 4. Publish the fallback calendar for reduced availability at the same time (×1.6 for three sessions a week instead of five).
 5. If a date must hold, name what ships at that date honestly (`v1.0-rc1` at step 9 of 12) rather than redefining "complete".
-
-In short - be conservative in estimates. 
