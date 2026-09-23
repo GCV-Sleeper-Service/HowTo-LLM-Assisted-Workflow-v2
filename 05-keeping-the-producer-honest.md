@@ -72,6 +72,6 @@ Per batch, record five numbers in the consolidated audit:
 
 A leaner process that shows equal-or-fewer escapes at lower cost is validated by data; one that shows more is reverted with data in hand. This is the same truth-seeking discipline from Chapter 2 pointed at the method itself.
 
-> **From the source project.** Two auditors caught the declaration-order defect (F-6); a third did not. The lesson was drawn as "single auditors miss things - mandate two." The cheaper lesson was "code in prose is never compiled - compile it." Both are true; only the second removes the defect class. 
+> **From the source project.** Two auditors caught the declaration-order defect (F-6); a third did not. One lesson was drawn as "single auditors miss things - mandate two." The second, cheaper lesson was "code in prose is never compiled - compile it." Both statements are true, but the fact is that only the second removes the defect class. 
 
-**Prefer the fix that deletes a failure mode over the one that adds a check for it.**
+**When you have a failure mode, the correction of the situation that deletes it is better then the one that adds a check for such a failure.**
