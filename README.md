@@ -4,7 +4,7 @@ By **Irakli Natsvlishvili** · [LinkedIn](https://www.linkedin.com/in/irakli) ·
    
 **Why this guide exists.** It is deep conviction of the author of the project that people who will engage with agentic AI software development sooner or later will release necessity of similar guide for their own project. Thus the purpose of this guide - to save them time and flustration and offer something that works - a project-agnostic guide for building software with AI architecting and coding agents from more than one vendor, without losing control of quality, state, or your own time. 
 
-Every rule in the guide was taken from a real project: an open-source ESP32 sensor-gateway firmware developed almost entirely through AI agents that started  early 2026. The project by September 2026 (at the moment of writing this guide) has 230+ pull requests, more than ten development phases, six LLM platforms in five roles, and had quite number of setbacks that taught more than the successes did.
+Every rule in the guide was taken from a real project: an open-source ESP32 sensor-gateway firmware developed almost entirely through AI agents that started  early 2026. The project by September 2026 (at the moment of writing this guide) has more than 180 pull requests, more than ten development phases, six LLM platforms in five roles, and had quite number of setbacks that taught more than the successes did.
 
 **Who this is for.** An architect-engineer, or a small team, who wants AI agents to do most of the coding while a human keeps the architecture, the evidence, and controls the merge button. Assumptions - you can read code and run a build. The guide is designed to be agnostic - it does not assume any particular language, framework, or vendor.
 
