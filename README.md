@@ -15,7 +15,9 @@ To readers of this guide - if you have only one rule to remember when doing AI-a
 
 __Don't trust AI outputs implicitly!__
 
-The author can't stress the above rule strong enough! You must architect your systems and projects such a way to **treat AI outputs as untrusted external services.** You **must know** what is the expected output with every step and thus need to build verification layers, fallback paths, circuit breakers, and audit logs into any system that acts on model outputs. 
+The author can't stress the above rule strong enough! 
+
+You __must__ architect your systems and projects such a way to **treat AI outputs as untrusted external services.** You **must know** what is the expected output with every step and thus need to build verification layers, fallback paths, circuit breakers, and audit logs into any system that acts on model outputs. 
 
 With the above said...
 
