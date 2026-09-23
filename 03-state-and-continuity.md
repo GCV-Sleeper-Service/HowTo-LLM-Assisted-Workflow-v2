@@ -12,7 +12,7 @@ This is the fact - documentation grows faster than any context window, __especia
 
 | Layer | Content | Size | Who reads it |
 | --- | --- | --- | --- |
-| 1 - Current state | `CURRENT-STATE.md`: version, last three steps, next three steps, open defects, measurements, unimplemented recommendations, stale documents | ~2 K tokens | Read first on very session by every agent |
+| 1 - Current state | `CURRENT-STATE.md`: version, last three steps, next three steps, open defects, measurements, unimplemented recommendations, stale documents | ~2 K tokens | Read first on every session by every agent |
 | 2 - Decisions | `decision-log.md`: one line per architectural decision, dated, with a link to the source | ~3 K tokens | Planning sessions |
 | 3 - Method | Prompt-writing rules, the process guide, this repository's templates | ~15 K tokens | Prompt-production sessions only |
 | 4 - Phase context | The step's prompt bundle plus the critical-rules subset it cites | 10–20 K tokens | Coding agents and reviewers |
@@ -36,7 +36,7 @@ Sections in the file, in order:
 - what just shipped (last three steps with PR numbers)
 - what is next
 - open issues by severity
-- measurements the plan depends on (using data from the current project - heap, sizes, test counts — with the date they were taken)
+- measurements the plan depends on (using data from the current project - heap, sizes, test counts - with the date they were taken)
 - unimplemented recommendations with where each is routed
 - stale documents that must not be trusted until updated
 - a short architecture quick-reference
