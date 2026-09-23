@@ -33,7 +33,7 @@ Those two phases translated into a month time spent into refactor and delivered 
 
 - **File sizes to edit: plan the split when a file crosses ~2,000 lines, not when agents start failing.** When agents start failing, it is already late - the failure looks like rising fix cycles due to coding errors (from 0–1 to 3+), not like a context error.
 - **Many vs. One: prefer many small files with a deterministic assembly step over one large file.** Process: agents edit fragments; a script produces the artifact; a CI check confirms the artifact matches the fragments. Important: generated files are never edited by hand.
-- **Agent budget: reading too, not just editing.** A planning session that reads a 15 K-token methodology guide, a 30 K-token phase plan, and a prompt bundle has spent 60–80 K tokens before producing *anything*. See chapter 3 on session types and reading budgets.
+- **Agent budget: reading too, not just editing.** A planning session that reads a 15 K-token methodology guide, a 30 K-token phase plan, and a prompt bundle has spent 60–80 K tokens before producing *anything*. See Chapter 3 on session types and reading budgets.
 - **Prompt sizes - they count against the same context window.** Example - a 30 KB prompt that embeds the finished code leaves the agent's context window little room to read the code it is changing.
 
 __One important note__ - context window size is dependent on many factors - model, model version, vendor, provider/platform, subscription type, etc. Models from the same vendor with the same version/release can have different context sizes when offered directly from the vendor or through other platform or tool (like VSC plugin) - it would be beneficial to check and find out about this in advance.
