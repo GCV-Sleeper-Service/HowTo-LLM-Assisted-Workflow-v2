@@ -61,7 +61,7 @@ Set at planning time, per step and written into the prompt header. Risk tiers be
 
 One thing to keep in mind - the reviewer count for a tier does not change. Set the reviewer count once per project and keep it: the project runs five reviewers (three inline, two external) on every code step, because on several occasions exactly one of the five found a defect the others missed (as mentioned in the [previous chapter](01-before-you-start.md)); the optimization target there is automating the orchestration, not trimming reviewers. 
 
-The tier is the only lever that keeps *producer-side* verification cost proportional. The source project learned this by not having it: with every step treated as high, verification effort reached roughly ten times production effort. Don't repeat that.
+The tier is the only lever that keeps *producer-side* verification cost proportional. The source project learned this by not having it: with every step treated as high, verification effort reached roughly ten times production effort and wasted time.
 
 ## 2.5 Source-of-truth hierarchy
 
