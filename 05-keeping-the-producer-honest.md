@@ -2,9 +2,9 @@
 
 Here is the inconvenient truth - **The session that writes prompts is an LLM too, and it drifts from its own guide for the same reasons a coding agent drifts from a prompt.** 
 
-As in Chapter 1, here needs to be repeated that [is written right in the middle of the readme](README.md#one-warning-recommendation-by-the-author). 
+Here needs to be repeated that [is written right in the middle of the readme](README.md#one-warning-recommendation-by-the-author) - please go back and read it before continuing this chapter. 
 
-The fix for Producer's drift from the prompt producing guide __is not__ to write a longer guide. Please take this as a hard learned truth.
+The fix for Producer's drift from the prompt producing guide __is not__ to write a longer, more elaborate guide. Please take this as a hard learned truth.
 
 The fix is a short list of mechanical gates that run before dispatch, a linter that owns every rule it can express, and a measure/cap on how much verification a step may cost.
 
@@ -21,13 +21,13 @@ Here are the eight failure modes that are encountered in the Producer session on
 | # | Failure mode | Generalization/the problem |
 | --- | --- | --- |
 | F-1 | Scope references another prompt | Self-containedness broken by convenience |
-| F-2 | Numeric constant embedded without a verification gate | A value copied from text/prose, __not__ extracted from a source (see authority of source of truth in Chapter 2) |
+| F-2 | Numeric constant embedded without a verification gate | A value copied from text/prose, __not__ extracted from a source (see authority of source of truth in [Chapter 2](02-operating-model.md)) |
 | F-3 | Device-test section names one target when the plan requires two | Coverage narrower than the pre-defined acceptance criteria |
 | F-4 | Function signature embedded without re-grep | A fact that was true last batch and not verified |
-| F-5 | Line numbers as anchors | Decays on every merge (see embedded fact liability section in Chapter 4) |
+| F-5 | Line numbers as anchors | Decays on every merge (see embedded fact liability section in [Chapter 4](04-writing-prompts.md)) |
 | F-6 | Declaration order not modelled | Code in text/prose, never compiled |
 | F-7 | "The gate ran" mistaken for "the gate enforced" | A check whose failure changes nothing instead of stopping |
-| F-8 | Producer's self-analysis misattributes the root cause | Asking the drifter to explain its own drift (see the note at the bottom of Chapter 2) |
+| F-8 | Producer's self-analysis misattributes the root cause | Asking the drifter to explain its own drift (see the note at the bottom of [Chapter 2](02-operating-model.md)) |
 
 ## 5.2 Why prose rules fail
 
