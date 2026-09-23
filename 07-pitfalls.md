@@ -25,9 +25,9 @@ All twelve occurred on the source project.
 
 **8 is the one a compiler would have caught.** Two of three auditors found a declaration-order error in a prompt's embedded C++. The audit's own text said no automated check was possible without a real compile and put that out of scope. That scoping decision was the mistake. A syntax-only compile of the assembled fragment takes seconds and is deterministic; a prose review of C++ code is not.
 
-**9 is silent.** Nothing fails when a memory note or a chat summary says "issues closed" and they are not. The next session inherits a false state and plans on it. The only defense is that state claims are verified against the live repository/code before usage that is done every time, by every role.
+**9 is a pitfall accompanied with silence.** A memory note or a chat summary says "issues closed", in reality they are not and on surface nothing fails. The next session inherits a false state and continues/plans on it. The only defense against such a failure is that state claims need to be verified against the live repository/code before usage. And should be done every time, by every role.
 
-**12 looks like ambition.** On the source project a plan step assumed the firmware framework could act as a Zigbee coordinator while running a Wi-Fi access point for provisioning. The framework's documentation, checked later, said the component supports end-device and router roles only and that access-point mode with Zigbee is unsupported. The step had been sized, versioned, and sequenced. One citation would have moved it to a research step with a decision gate.
+**12 - ambition rather then reality.** On the source project a plan step assumed the firmware framework could act as a Zigbee coordinator while running a Wi-Fi access point for provisioning. The framework's documentation, checked later, said the component supports end-device and router roles only and that access-point mode with Zigbee is unsupported. The step had been sized, versioned, and sequenced. One citation would have moved it to a research step with a decision gate.
 
 ## Early-warning dashboard
 
