@@ -2,7 +2,7 @@
 
 **Twelve (anti)patterns, each with the signal that tells you it is happening, as well as one change that prevents it.** 
 
-All twelve occurred on the source project; the first five were in version 1 of this guide, the rest were learned after it.
+All twelve occurred on the source project.
 
 | # | Pitfall | Recognition signal | Prevention |
 | --- | --- | --- | --- |
