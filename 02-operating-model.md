@@ -7,7 +7,7 @@ Then the roles assigned to AI agents usually on different vendors' models. Plus 
 ## 2.1 Phases, steps, pull requests
 
 - A **phase** has one theme - a feature, a refactor, or a stabilization effort (read - complex bug fixing) - and contains 6–12 steps, depending on phase complexity. Remember - mixing themes in a phase is the reliable way to get scope creep and confused agents and more time wasted as a result.
-- A **step** is one PR with a bounded scope, its own prompt bundle (see Chapter 4), a risk tier, and a version tag when it changes shipped behavior. Note - research steps produce a document and way forward and no version bump.
+- A **step** is one PR with a bounded scope, its own prompt bundle (see [Chapter 4](04-writing-prompts.md)), a risk tier, and a version tag when it changes shipped behavior. Note - research steps produce a document and way forward and no version bump.
 - A **PR** is considered done when it contains the code *and* *every* deliverable of the step: state-file update, changelog entry, session log, consolidated audit, and any edits the next step's prompt needs. Post-merge work should be limited to tagging and closing issues.
 
 > **Why all in-PR.** Here is a lesson from the source project with the attempt to put documentation "after merge". Result was that within one phase the state file was a step behind, prompts referenced stale IP addresses, and the operator opened "documentation update" PRs the day after merges. The rule that fixed it: *if you find yourself opening a docs PR the day after a merge, that is the drift the in-PR rule above prevents.*
@@ -16,8 +16,8 @@ Then the roles assigned to AI agents usually on different vendors' models. Plus 
 
 | Role | What it does | Typical assignment | Rule |
 | --- | --- | --- | --- |
-| **Architect / planner** | Phase plans, architecture decisions, calendar, risk tiers | Highest-capability AI/LLM model, with the Operator as co-Architect, reviewer and approver | Reads live code before every answer; runs the assumption audit (see Chapter 3) before any plan |
-| **Prompt producer** | Turns a plan step into the three-file prompt bundle | Same model class, separate session | Subject to the gates in Chapter 5; produces prompts, never code |
+| **Architect / planner** | Phase plans, architecture decisions, calendar, risk tiers | Highest-capability AI/LLM model, with the Operator as co-Architect, reviewer and approver | Reads live code before every answer; runs the assumption audit (see [Chapter 3](03-state-and-continuity.md)) before any plan |
+| **Prompt producer** | Turns a plan step into the three-file prompt bundle | Same model class, separate session | Subject to the gates in [Chapter 5](05-keeping-the-producer-honest.md); produces prompts, never code |
 | **Coding agent** | Executes one prompt on a branch, opens the PR, runs build/test/deploy, posts evidence/documentation | Mid-tier model with repo and shell/tool access | Executes literally; stops on any failed checkpoint/gate; never edits generated files |
 | **Reviewers** | Inline and whole-PR review with severity classification, typically done by Mid-High level AI agents | 3 inline on the PR platform + 2 external, different model families | Assess-then-fix loop is run by the coding agent, not the reviewers |
 | **Operator** | in addition to be co-Architect - everything an agent cannot: physical tests, judgement on findings, merge, state file | The human (You) | The only role allowed to override a checkpoint failure |
@@ -43,7 +43,7 @@ flowchart LR
 ```
 
 Three properties matter: 
-- the gates before dispatch are mechanical where possible (see Chapter 5)
+- the gates before dispatch are mechanical where possible (see [Chapter 5](05-keeping-the-producer-honest.md))
 - a failed checkpoint stops the agent; it never "fixes" the code to make the check pass
 - and the state the next step reads was written inside this step's PR, so nothing is reconstructed from memory.
 
@@ -53,13 +53,13 @@ Set at planning time, per step and written into the prompt header. Risk tiers be
 
 >  __Note__: the examples per risk tier are specific to project, so in your project they might be completely different. You need to assess risks and revise the table as needed.
 
-| Tier | Examples | Reviewers | Producer audit before dispatch | Prompt style (Chapter 4) |
+| Tier | Examples | Reviewers | Producer audit before dispatch | Prompt style ([Chapter 4](04-writing-prompts.md)) |
 | --- | --- | --- | --- | --- |
 | **Low** | Struct/type definitions, docs, tests, cosmetic | Project default | Lint only | Intent and acceptance criteria |
 | **Medium** | New endpoint, new task, dashboard behaviour | Project default | Lint + one independent auditor | Intent and acceptance; prescribe only interface contracts |
 | **High** | Boot path, persistence/migration, auth, anything irreversible on a device or in data | Project default | Lint + two auditors from different families, reconciled | Full prescription allowed; embedded code compiled before dispatch |
 
-One thing to keep in mind - the reviewer count for a tier does not change. Set the reviewer count once per project and keep it: the project runs five reviewers (three inline, two external) on every code step, because on several occasions exactly one of the five found a defect the others missed (as mentioned in the previous chapter); the optimization target there is automating the orchestration, not trimming reviewers. 
+One thing to keep in mind - the reviewer count for a tier does not change. Set the reviewer count once per project and keep it: the project runs five reviewers (three inline, two external) on every code step, because on several occasions exactly one of the five found a defect the others missed (as mentioned in the [previous chapter](01-before-you-start.md)); the optimization target there is automating the orchestration, not trimming reviewers. 
 
 The tier is the only lever that keeps *producer-side* verification cost proportional. The source project learned this by not having it: with every step treated as high, verification effort reached roughly ten times production effort. Don't repeat that.
 
