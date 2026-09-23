@@ -9,7 +9,7 @@ There are two styles, chosen by risk tier. Both use the same ten-section skeleto
 ## 4.1 The bundle: three files per step/PR
 
 1. **Agent prompt** - the instructions the coding agent executes.
-2. **Two-step prompt** - the agent setup block the operator pastes first, plus the reviewer checklist keyed to this step's changes.
+2. **Setup-and-review prompt** - the agent setup block the operator pastes first, plus the reviewer checklist keyed to this step's changes.
 3. **Session handoff** - state snapshot, risk table, what carries forward (described in the [Chapter 3](03-state-and-continuity.md)).
 
 Producing the bundle is __the__ most expensive part of a step and the place where quality is decided: a precise bundle merges on the first attempt; a vague one costs three to six review rounds and wasted time. 
