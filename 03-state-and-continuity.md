@@ -64,7 +64,7 @@ The handoff for step N+1 is written or amended *inside step N's PR* if step N di
 
 That is the checkpoint mechanism: every merge leaves the next session's starting point already written.
 
-A handoff is self-contained. If its scope section says "see the previous prompt", that is a blocking defect of the document — the next session may not have that prompt, and a lint rule should catch the phrase (see Chapter 5).
+A handoff is self-contained. If its scope section says "see the previous prompt", that is a blocking defect of the document — the next session may not have that prompt, and a lint rule should catch the phrase (see [Chapter 5](05-keeping-the-producer-honest.md)).
 
 ## 3.4 The decision log
 
