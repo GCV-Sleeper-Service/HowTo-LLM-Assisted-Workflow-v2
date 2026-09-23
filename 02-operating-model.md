@@ -86,7 +86,7 @@ Archived documents are evidence, not instructions. Any plan older than the last 
 Follow these four rules, applied in every planning, debugging, and review session:
 
 1. **Confirm `what` before hypothesizing `why`.** Run one diagnostic command - this will save you time and recourses instead spending them for explanation. 
-2. **Eliminate the simplest explanation first.** Or, to say differently - Don't Complicate Things Beyond Necessity (Occam's Razor!) - if you got an elegant theory explaining something, this is the signal to run the some basic checks first (see rule above).
+2. **Eliminate the simplest explanation first.** Or, to say differently - Don't Complicate Things Beyond Necessity (Occam's Razor!) - if you got an elegant theory explaining something, this is the signal that you are losing touch with reality and time to run the some basic checks first (see rule above).
 3. **State assumptions and confirm/verify each of them.** "I assume X because Y" - this means: run a command that tests X. If it cannot be tested, label it as `UNVERIFIED ASSUMPTION` in the output and deal with it accordingly.
 4. **When evidence and narrative diverge, evidence always wins** - that's by the way, includes not only AI's narrative (explaining something very plausible and believable), but when the narrative is your own!
 
