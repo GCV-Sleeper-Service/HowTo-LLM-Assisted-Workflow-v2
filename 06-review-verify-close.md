@@ -1,37 +1,37 @@
-# 6. Review, verify, close
+# 6. Review, audit, verify, close
 
-One thing is desire/wishes, the second - reality. Calendars come out of on past experience that is a measured cadence, never out of wishes. 
-
-Here is the observation:
+Process and reality:
 
 - Reviews find what prompts missed
-- Evidence from the running system settles what reviews cannot
-- Closure turns both of them into the next phase's starting point.
+- Evidence from the running system settles what reviews cannot assess
+- Closure turns both of them into the next phase's starting point
+
+So - review, verify, confirm. Then move on to the next step.
 
 ## 6.1 How reviews work - the review pipeline
 
-The working order of reviews (and not just code created by the coding agent) is following - five reviews per code step, in this order: 
+The working order of code reviews is five reviews per step, in the following sequence: 
 
-- Three online automated AI reviewers on the PR platform once PR is created and made ready for review (for the source project different AI model families were used on Github)
+- Three online automated AI reviewers on the PR platform once PR is created and made ready for review (for the source project repo is on GitHub with different AI model families for codereviews)
 - After that: two external whole-PR reviewers on other platforms
-- Finally one structured multi-turn review that produces the consolidated audit. 
+- Finally one structured multi-turn review that produces the consolidated audit 
 
 Above was the source project's default and it does not change with the risk tier. The tier changes producer-side audits and prompt style (see Chapter 2.4). A project may set a different default, but it sets it once.
 
-After the inline reviews land, the coding agent gets one instruction, verbatim every time:
+After the inline reviews land, the coding agent gets a single line instruction, which is the same every time:
 
-> Please analyze the code reviews and comments for the PR. Assess if they are warranted; if yes, implement the necessary fixes. Post a comment summarizing your assessment.
+> Please analyze the code reviews and comments for the PR. Assess if they are warranted; if yes, implement the necessary fixes. Post a comment in PR summarizing your assessment and work permormed.
 
-Assess-then-fix matters. Reviewers are sometimes wrong (a reviewer on the source project flagged a "wire-format regression" that the pre-existing code already produced); an agent that implements every finding will damage the code as often as it improves it. The agent's assessment comment - warranted / not warranted / not actionable, with reasons - is part of the audit trail.
+Important: assess-then-fix matters. Here is why - reviewers are sometimes wrong. An agent that _blindly_, without confirmation implements every finding by reviewers will damage the code and make things worse (read - more time wasted fixed things) as often as it improves it. The agent's assessment comment - warranted / not warranted / not actionable, with reasons - is part of the audit trail.
 
-External reviewers get a structured prompt: classify findings by severity, check each acceptance criterion, quote offending content verbatim, propose a concrete fix. "Looks good" is not a review.
+External reviewers also get the same structured prompt: classify findings by severity, check each acceptance criteria and propose a concrete fix. "Looks good" is not a review - it is a prose. Review assess if implementation reaches the intended, pre defined goals that are measurable.
 
 ## 6.2 The consolidated audit
 
-Written inside the PR for any non-trivial step (new feature, runtime data path, dashboard, build script, or three or more sub-fixes). Minimum contents:
+This is written inside the PR for any non-trivial step (new feature, runtime data path, dashboard, build script, or three or more sub-fixes) has been implemented and passed all reviews. Minimum contents of the consolidated audits are:
 
-- Findings grouped by severity, each with disposition (fixed in this PR / tracked as issue #N / accepted with reason)
-- Agent autonomous decisions taken without human input, each classified helpful / harmful / neutral
+- Findings by reviewers: they are grouped by severity with clarifications/details (fixed in this PR / tracked as issue #N / accepted with reason)
+- Agent autonomous decisions taken without human input, each classified as helpful / harmful / neutral
 - The prompt-quality score: fix cycles, checkpoint saves, preventable review findings, autonomous decisions
 - Unimplemented recommendations and where each one was routed
 
@@ -39,10 +39,12 @@ The score is the method's feedback loop. A step with zero fix cycles means the p
 
 ## 6.3 Evidence beats opinion
 
-No reviewer catches a heap exhaustion that appears after three weeks of data, a stack overflow on one of six boards, or a client that drops a chunked response. For systems that run on hardware or against live services:
+Reality matters. No reviewer catches a heap exhaustion that appears after three weeks of data, a stack overflow on one of specific case (like a new board), or a client that drops a chunked response. 
+
+Here is a method for systems that run on hardware or against live services:
 
 - The agent deploys and posts the raw evidence into the PR: version endpoint, health telemetry, response headers, binary size against its partition.
-- Evidence must exercise the acceptance criterion as written. A `curl … | head -20` proves the endpoint answers; it does not prove a full-length response completes on the smallest board. The source project's critical bug fix was accepted on the first kind of evidence and needed the second kind recorded four months later.
+- Evidence must exercise the acceptance criteria as written. A `curl … | head -20` proves the endpoint answers; it does not prove a full-length response completes on the smallest environment (a board in the source project case). 
 - Long-duration behaviour gets a periodic health line in the logs and a weekly scripted sample committed alongside the state file. Most production-only failures on the source project were visible in telemetry weeks before they crashed anything.
 
 ## 6.4 Phase closure
@@ -54,10 +56,10 @@ Every phase ends with one closure step whose PR contains:
 3. New lessons and critical rules - and the lint rules that let old prose rules be deleted
 4. Method update: new failure patterns into the pitfalls list, checkpoint learnings into the prompt template
 5. State file re-verified: `Last verified` date, open issues, stale documents, unimplemented recommendations
-6. KPI row appended (§6.5) and the models/tools used recorded, with any behaviour change noticed
-7. Every recommendation routed - issue or state-file entry, no third option
+6. KPI row appended (see the 6.5 below) and the models/tools used recorded, with any behavour change noticed
+7. Every recommendation routed: issue or state-file entry, no third option
 
-Skipping closure is how the source project arrived at a plan that contradicted its decision log and a calendar that assumed an already-fixed bug was open.
+Lesson to learn: skipping closure is how the source project arrived at a plan that contradicted its decision log and a calendar that assumed an already-fixed bug was open.
 
 ## 6.5 KPIs
 
@@ -72,7 +74,9 @@ Skipping closure is how the source project arrived at a plan that contradicted i
 
 Capture timestamps when they happen, not reconstructed at closure.
 
-## 6.6 Calendars from cadence
+## 6.6 Project calendars from cadence
+
+Time spent on project/implementation comes from reality, not from desires or wishes. Calendar for the project implementation is driven by past experience that is a measured cadence, never out of wishes. 
 
 Derive dates from measured throughput, not from the plan's step count:
 
@@ -82,4 +86,4 @@ Derive dates from measured throughput, not from the plan's step count:
 4. Publish the fallback calendar for reduced availability at the same time (×1.6 for three sessions a week instead of five).
 5. If a date must hold, name what ships at that date honestly (`v1.0-rc1` at step 9 of 12) rather than redefining "complete".
 
-> **From the source project.** A target of "phase complete by 10 October" was set with 23 days remaining and nine steps left, two of them two-auditor steps; measured cadence said 16–22 sessions. The honest verdict was ≈15 % likely, with a realistic date three weeks later. Saying so in the plan is cheaper than discovering it on 9 October.
+In short - be conservative in estimates. 
