@@ -2,7 +2,7 @@
 
 **This is quite simple - a Phase contains numbered Steps, each Step contains one PR (pull request). The pull request is the only place where a step is considered done.** 
 
-Then the roles assigned to AI agents usually on different vendors' models. Plus a risk tier set at planning time decides how heavy the review is.
+Then the roles that are assigned to AI agents. These AI agents usually are from different vendors' models. Plus a risk tier set at planning time decides how heavy the review is.
 
 ## 2.1 Phases, steps, pull requests
 
@@ -67,7 +67,7 @@ The tier is the only lever that keeps *producer-side* verification cost proporti
 
 Source of truth was mentioned number of times and one should not underestimate importance of it. When two sources disagree - and they will - resolve dispute in this order and make following list as a discipline:
 
-1. Live code on the main branch - this trumps eveything
+1. Live code on the main branch - this trumps everything
 2. Build output, test results, telemetry, measurements from the running system
 3. `CURRENT-STATE.md`
 4. The decision log
@@ -85,15 +85,15 @@ Archived documents are evidence, not instructions. Any plan older than the last 
 
 Follow these four rules, applied in every planning, debugging, and review session:
 
-1. **Confirm `what` before hypothesizing `why`.** Run one diagnostic command - this will save you time and recourses instead spending them for explanation. 
-2. **Eliminate the simplest explanation first.** Or, to say differently - Don't Complicate Things Beyond Necessity (Occam's Razor!) - if you got an elegant theory explaining something, this is the signal that you are losing touch with reality and time to run the some basic checks first (see rule above).
+1. **Confirm `what` before hypothesizing `why`.** Run one diagnostic command - this will save you time and resources instead spending them for explanation. 
+2. **Eliminate the simplest explanation first.** Or, to say differently - Don't Complicate Things Beyond Necessity (Occam's Razor!) - if you got an elegant theory explaining something, this is the signal that you are losing touch with reality and time to run some basic checks first (see rule above).
 3. **State assumptions and confirm/verify each of them.** "I assume X because Y" - this means: run a command that tests X. If it cannot be tested, label it as `UNVERIFIED ASSUMPTION` in the output and deal with it accordingly.
-4. **When evidence and narrative diverge, evidence always wins** - that's by the way, includes not only AI's narrative (explaining something very plausible and believable), but when the narrative is your own!
+4. **When evidence and narrative diverge, evidence always wins** - that's by the way, can be not only AI's narrative (explaining something very plausible and believable), but when the narrative is your own!
 
 Evidence strength, strongest first: direct measurement → source inspection → current documentation → historical documentation → human memory → model inference. Anything that affects production needs the first two.
 
 > **From the source project.** The author again feels obligated to stress the following: hypothesizing of what is happening could start ONLY after facts have been confirmed and verified. 
-> Below is the output from the Prompt Producer (high capable Frontier Model) delivered when confronted with the reality that it made up facts:
+> Below is the output from the Prompt Producer (highly capable Frontier Model) delivered when confronted with the reality that it made up facts:
 > > The architecture-conditional stack hypothesis (RISC-V needs 20KB vs Xtensa 16KB) was a *plausible-sounding* explanation that nobody - myself included - stress-tested against the simplest alternative: "the C3 just doesn't have the override compiled in." The evidence was there: `grep -c 'external_components' firmware/esp32-c3-multi-sensor.yaml` would have returned 0 at any point. A 30-second check would have saved the entire investigation.
 
 So... check _facts_ before hypothesis... 
