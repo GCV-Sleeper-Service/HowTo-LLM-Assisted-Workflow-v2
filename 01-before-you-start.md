@@ -2,7 +2,7 @@
 
 __Decide three things before the first prompt:__
 - what each agent is allowed to do
-- how big a file an agent may edit
+- how big is a file an agent may edit
 - how many sessions per step you will need and can afford
 
 Everything else in this guide is downstream of those three.
