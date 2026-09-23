@@ -16,7 +16,7 @@ The working order of code reviews is five reviews per step, in the following seq
 - After that: two external whole-PR reviewers on other platforms
 - Finally one structured multi-turn review that produces the consolidated audit 
 
-Above was the source project's default and it does not change with the risk tier. The tier changes producer-side audits and prompt style (see Chapter 2.4). A project may set a different default, but it sets it once.
+Above was the source project's default and it does not change with the risk tier. The tier changes producer-side audits and prompt style (see [Section 2.4 in Chapter 2](02-operating-model.md#24-Risk-tiers)). A project may set a different default, but it sets it once.
 
 After the inline reviews land, the coding agent gets a single line instruction, which is the same every time:
 
