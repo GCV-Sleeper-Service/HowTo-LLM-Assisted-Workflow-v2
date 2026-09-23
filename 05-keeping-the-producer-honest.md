@@ -2,7 +2,7 @@
 
 Here is the inconvenient truth - **The session that writes prompts is an LLM too, and it drifts from its own guide for the same reasons a coding agent drifts from a prompt.** 
 
-Here needs to be repeated that [is written right in the middle of the readme](README.md#one-warning-recommendation-by-the-author) - please go back and read it before continuing this chapter. 
+Repeating what [is written right in the middle of the readme](README.md#one-warning-recommendation-by-the-author) - please go back and read it before continuing this chapter. 
 
 The fix for Producer's drift from the prompt producing guide __is not__ to write a longer, more elaborate guide. Please take this as a hard learned truth.
 
@@ -10,7 +10,7 @@ The fix is a short list of mechanical gates that run before dispatch, a linter t
 
 ## 5.1 What went wrong on the source project
 
-Example: batch 1 prompts of one feature phase was produced by a Prompt Producer (highly capable Frontier model) session. In that session the Producer had been told to read the process guide (which already had non-trivial number of rules and requirements) and produce the prompt according to the planned phase. The prompts the session produced put documentation "after merge" (while the guide says that they need to be in-PR), pushed device testing to the human (the guide says the agent does the all non-hardware testing), used a stale board address and a renamed config file (the state file in the repo had the right ones), and set scope checkpoints that the canonical version-bump tool tripped. Upon detecting these, batch 2 session fixed those and introduced new ones problems: a numeric constant copied from an old prompt, a changelog with pre-filled byte counts, line-number anchors, a scope section that pointed at another prompt, and a code insertion directive that would not compile.
+Example: batch 1 prompts of one feature phase were produced by a Prompt Producer (highly capable Frontier model) session. In that session the Producer had been told to read the process guide (which already had non-trivial number of rules and requirements) and produce the prompt according to the planned phase. The prompts the session produced put documentation "after merge" (while the guide says that they need to be in-PR), pushed device testing to the human (the guide says the agent does all non-hardware testing), used a stale board address and a renamed config file (the state file in the repo had the right ones), and set scope checkpoints that the canonical version-bump tool tripped. Upon detecting these, batch 2 session fixed those and introduced new problems: a numeric constant copied from an old prompt, a changelog with pre-filled byte counts, line-number anchors, a scope section that pointed at another prompt, and a code insertion directive that would not compile.
 
 Audit: four independent audits then catalogued eight producer failure modes, agreed on a fix list, and were merged as reports. Outcome: the fixes were never applied. 
 
@@ -51,7 +51,7 @@ Audit template: [`templates/consolidated-audit.template.md`](templates/consolida
 
 ## 5.4 The rule budget
 
-A rule that gets a lint implementation is **deleted from the prose (guide)**. The linter is the rule. The success metric for the method is that the critical-rules count should *decreases* from phase to phase while the lint count increases. If the producer-facing guide grows after an incident, the incident has been recorded, not prevented and this needs to be addressed.
+A rule that gets a lint implementation is **deleted from the prose (guide)**. The linter is the rule. The success metric for the method is that the critical-rules count should *decrease* from phase to phase while the lint count increases. If the producer-facing guide grows after an incident, the incident has been recorded, not prevented and this needs to be addressed.
 
 Keep one producer-facing contract of roughly 150 lines containing only binding MUSTs, most of them machine-checkable. Everything else is reference material a session opens on demand.
 
