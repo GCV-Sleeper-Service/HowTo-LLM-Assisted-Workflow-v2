@@ -62,6 +62,10 @@ The full list is in [CHANGELOG.md](CHANGELOG.md).
 
 This guide grew out of the [ESP32-GW-multi-sensor](https://github.com/GCV-Sleeper-Service/ESP32-GW-multi-sensor) project - a multi-board BLE sensor gateway with an embedded dashboard, built on ESPHome/ESP-IDF, developed by one operator directing Claude, GitHub Copilot, OpenAI Codex, Gemini, and Perplexity in defined roles. The project's own methodology documents (`Docs/development-process-guide.md`, `Docs/writing-guide/`, `Docs/llm-assisted-development-guide.md`, `Docs/templates/`) are the primary sources; the `examples/` folder cites them by path and commit.
 
+## About the author
+
+Irakli Natsvlishvili - sole author and architect of the [ESP32-BLE Gateway project](https://github.com/GCV-Sleeper-Service/ESP32-GW-multi-sensor/)
+
 ## License
 
 MIT.
