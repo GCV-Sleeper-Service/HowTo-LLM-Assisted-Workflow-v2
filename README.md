@@ -39,7 +39,7 @@ Then: [`templates/`](templates/) (state file, prompt skeleton, handoff, decision
 
 ## What changed from version 1
 
-Version 1 (written in April 2026) was a 100 KB practitioner's guide developed during the project, as well as raw project documents. It described a method that worked for refactoring phases. However it broke on the next feature phase: the prompt-writing sessions stopped following the guide they were given, and four rounds of audits were needed to find the defects in the produced prompts. Version 2 of the guide is acting on these lessons and rewritten with the following in mind:
+Version 1 (written in April 2026) was a 100 KB practitioner's guide developed during the project, as well as raw project documents. It described a method that worked for refactoring phases. However it broke on the next feature phase: the prompt-writing sessions stopped following the guide they were given, and four rounds of audits were needed to find the defects in the produced prompts. Version 2 acts on these lessons and was rewritten with the following in mind:
 
 - Every fact embedded in a prompt is a liability. The method now keeps facts to a minimum and pins each one to a live query.
 - Rules need to be enforced by a linter instead of written as prose, because prose rules lose force as their number grows. In the batches after the linter went in, the linted defect classes did not come back; the ones that relied on "read the guide more carefully" did.
