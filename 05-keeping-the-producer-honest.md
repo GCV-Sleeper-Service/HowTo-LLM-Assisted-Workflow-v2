@@ -31,46 +31,48 @@ Here are the eight failure modes that are encountered in the Producer session on
 
 ## 5.2 Why prose rules fail
 
-Every incident during prompt producing added a rule to the guide. At one point the project had 67 critical rules, nine errata, seven lint rules with an eighth planned, and a tracked list of more than a dozen guardrails still to build - and a producer session's compliance with any one rule *fell* as the total number of rules rose. This is context attenuation, and it applies to the producer exactly as it applies to the agent. More prose is not a fix for prose that causes the problem.
+Every incident during prompt producing added a rule to the guide. At one point the project had 67 critical rules, nine errata, seven lint rules with an eighth planned, and a tracked list of more than a dozen guardrails still to build - and a producer session's compliance with any one rule *fell* as the total number of rules rose. This is context attenuation, and it applies to the producer exactly as it applies to the agent. Adding more rules to the guide does not help when the rules already there are being skipped.
 
 The evidence from the same project points one way, although the sample is small: in the prompt batches after the linter went in, **no linted defect class came back, while two unlinted ones did** - a delay constant copied from an old prompt and a declaration-order error in embedded code.
 
 ## 5.3 The gates that work
 
-Run below before any prompt is dispatched to the coding agent. Mechanical where possible; short where not possible.
+Here is what runs before any prompt goes to the coding agent. Mechanical wherever possible - and short where it is not possible.
 
-1. **Live-extract block.** The producer session starts by extracting, from the state file and live `grep`, every value the prompts will embed - addresses, filenames, signatures, constants, version - into a table with the source of each. Prompts may __only__ use values from the table. The table is committed with the bundle as the batch's assumption audit.
-2. **Doctrinal value pinning.** Any number in a prompt either references a measurement the agent will perform or a live file the agent will grep. A pre-filled measured value is a defect; lint it once the class recurs (L9 in the lint starter).
-3. **Symbol anchors.** Any `file:line` reference without a following re-verify command is a defect; lint it once the class recurs (L10 in the lint starter).
-4. **Self-containedness.** Any "see <other prompt>" in a scope or constraint section fails lint.
-5. **Compile-before-dispatch.** If a prompt embeds code destined for a compiled artifact, the producer drops it into a scratch branch, runs assembly, and runs a syntax-only compile. One compile replaces the declaration-order trace across all auditors.
-6. **Risk-tiered audit.** Low tier: lint only. Medium: lint plus one independent auditor using the audit template. High: two auditors from different model families, reconciled in one short file. No reconciliation file when there is one auditor; no self-report file from the producer - the producer's account of its own reasoning is input, not evidence (F-8).
-7. **Precedence line.** Every prompt bundle states which document governs when two conflict. On the source project the process guide governs the prompt-writing methodology; without the line, the producer picks whichever it read last.
+1. **Live-extract block.** The producer session starts by pulling every value the prompts will use - addresses, filenames, function signatures, constants, the version - out of the state file and live `grep`, into one table with the source of each value. The prompts may use __only__ values from that table. The table is committed with the bundle as the batch's assumption audit.
+2. **Pin every number.** Any number in a prompt points either to a measurement the agent will do, or to a live file the agent will grep. A pre-filled measured value is a defect - lint it once the class comes back (L9 in the lint starter).
+3. **Anchor by symbol.** A `file:line` reference without a re-verify command next to it is a defect - lint it once the class comes back (L10 in the lint starter).
+4. **Self-contained prompts.** Any "see <other prompt>" in a scope or constraint section fails lint.
+5. **Compile before dispatch.** If a prompt carries code that ends up in a compiled artifact, the producer drops it into a scratch branch and runs the assembly step and a syntax-only compile. One compile replaces the declaration-order reading that every auditor would otherwise have to do.
+6. **Audit by risk tier.** Low tier: lint only. Medium: lint plus one independent auditor with the audit template. High: two AI auditors from different model families, reconciled in one short file. We need tow because with one auditor there is no reconciliation file. And no self-report file from the producer - what the producer says about its own reasoning is input, not evidence (F-8).
+7. **Precedence line.** Every prompt bundle says which document wins when two disagree. On the source project the process guide wins over the prompt-writing methodology. Without that line, the producer follows whichever document it read last.
 
 Audit template: [`templates/consolidated-audit.template.md`](templates/consolidated-audit.template.md) covers both prompt-bundle audits and code-PR audits. Lint starter: [`templates/lint-rules-starter.md`](templates/lint-rules-starter.md).
 
 ## 5.4 The rule budget
 
-A rule that gets a lint implementation is **deleted from the prose (guide)**. The linter is the rule. The success metric for the method is that the critical-rules count should *decrease* from phase to phase while the lint count increases. If the producer-facing guide grows after an incident, the incident has been recorded, not prevented and this needs to be addressed.
+Simple rule: once a rule has a lint check, that rule's sentence is __deleted__ from the guide. From then on the linter enforces it, and nobody has to remember it.
 
-Keep one producer-facing contract of roughly 150 lines containing only binding MUSTs, most of them machine-checkable. Everything else is reference material a session opens on demand.
+The number of prose rules goes down from phase to phase, while the number of lint rules goes up is the evidence that this method works. If the producer-facing guide gets longer after an incident, you have written the incident down - you have not stopped it from happening again. Treat that as a problem to fix.
+
+Keep one producer-facing contract of about 150 lines, with only the binding MUSTs, most of them machine-checkable. Everything else is reference material that a session opens when it needs it.
 
 ## 5.5 The freeze rule
 
-When a phase stalls on process, the marginal value of another methodology document is negative. Declare a freeze: no new audits of audits, no methodology rewrites, no producer-prompt rewrites until the next code step merges. 
+There is a point where one more methodology document costs more than it gives. You are there when a phase is held up by process rather than by code. At that point, declare a freeze: no new audits of audits, no methodology rewrites, no rewrites of the producer prompt - until the next code step merges.
 
-Apply the fixes already written, dispatch the lowest-risk step, and let execution - agent, CI, device - find the next defect. On the source project the cheapest remaining defect discovery was to run the prompt.
+Then do three things: apply the fixes that are already written, dispatch the lowest-risk step, and let the execution itself - the agent, CI, the device - find the next defect. On the source project, after all the audits, the cheapest way left to find defects was simply to run the prompt.
 
 ## 5.6 Instrument the process
 
-Per batch, record five numbers in the consolidated audit: 
+Measure the method the same way you measure the code. For every batch, record five numbers in the consolidated audit: 
 - producer sessions
 - audit sessions
 - fix-cycle PRs
 - defects that escaped to agent execution
 - defects that escaped to the running system. 
 
-A leaner process that shows equal-or-fewer escapes at lower cost is validated by data; one that shows more is reverted with data in hand. This is the same truth-seeking discipline from Chapter 2 pointed at the method itself.
+If a leaner process shows the same or fewer escapes at a lower cost, the data says keep it. If it shows more, revert it - and you will have the numbers to show why. This is the truth-seeking discipline from [Chapter 2](02-operating-model.md#26-truth-seeking-as-a-named-discipline), pointed at the method itself.
 
 > **From the source project.** Two auditors caught the declaration-order defect (F-6); a third did not. One lesson was drawn as "single auditors miss things - mandate two." The second, cheaper lesson was "code in prose is never compiled - compile it." Both statements are true, but the fact is that only the second removes the defect class. 
 

@@ -39,15 +39,15 @@ The coding agent writes it inside the PR for any non-trivial step (new feature, 
 
 The score is the method's feedback loop. A step with zero fix cycles means the prompt was complete; a checkpoint save means the prompt was wrong and the checkpoint caught it; a preventable finding means the prompt had a gap the reviewers filled. Track them per phase (§6.5).
 
-## 6.3 Evidence beats opinion
+## 6.3 Evidence from the running system
 
-Reality matters. No reviewer catches a heap exhaustion that appears after three weeks of data, a stack overflow on one of specific case (like a new board), or a client that drops a chunked response. 
+Reality matters. No reviewer will catch a heap exhaustion that shows up after three weeks of data, a stack overflow that happens only in one specific case (a new board, for example), or a client that drops a chunked response. Only the running system shows those.
 
-Here is a method for systems that run on hardware or against live services:
+For systems that run on hardware or against live services:
 
-- The agent deploys and posts the raw evidence into the PR: version endpoint, health telemetry, response headers, binary size against its partition.
-- Evidence must exercise the acceptance criteria as written. A `curl … | head -20` proves the endpoint answers; it does not prove a full-length response completes on the smallest environment (a board in the source project case). 
-- Long-duration behavior gets a periodic health line in the logs and a weekly scripted sample committed alongside the state file. Most production-only failures on the source project were visible in telemetry weeks before they crashed anything.
+- The agent deploys and posts the raw evidence into the PR: the version the system reports, health telemetry, response headers, the binary size against its partition.
+- The evidence has to exercise the acceptance criterion as it is written. Example: `curl … | head -20` proves that the endpoint answers. It does not prove that a full-length response completes on the smallest environment (in the source project - the smallest board).
+- Long-running behavior gets a periodic health line in the logs, plus a weekly scripted sample committed next to the state file. On the source project, most failures that only appeared in production were visible in telemetry weeks before they crashed anything.
 
 ## 6.4 Phase closure
 

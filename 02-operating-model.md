@@ -22,7 +22,7 @@ Then roles are assigned to AI agents - usually models from different vendors. An
 | **Reviewers** | Inline and whole-PR review with severity classification, typically done by mid- to high-tier AI agents | 3 inline on the PR platform + 2 external, different model families | Assess-then-fix loop is run by the coding agent, not the reviewers |
 | **Operator** | in addition to be co-Architect - everything an agent cannot: physical tests, judgment on findings, merge, state file | The human (You) | The only role allowed to override a checkpoint failure |
 
-Keep the roles on separate sessions even when the same model could do two of them. A planning session that also writes prompts drifts toward what is convenient to write; a producer that also reviews its own prompts approves them.
+Keep every role in its own session, even when the same model could do two of them. Why? A planning session that also writes prompts drifts toward what is easy to write, and a producer that reviews its own prompts approves them.
 
 ## 2.3 The loop for one step
 
@@ -43,7 +43,7 @@ flowchart LR
 ```
 
 Three properties matter: 
-- the gates before dispatch are mechanical where possible (see [Chapter 5](05-keeping-the-producer-honest.md))
+- the gates before handling prompt to agent are mechanical where possible (see [Chapter 5](05-keeping-the-producer-honest.md))
 - a failed checkpoint stops the agent; it never "fixes" the code to make the check pass
 - and the state the next step reads was written inside this step's PR, so nothing is reconstructed from memory.
 

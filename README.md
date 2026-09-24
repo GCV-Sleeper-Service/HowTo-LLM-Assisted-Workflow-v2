@@ -39,13 +39,13 @@ Then: [`templates/`](templates/) (state file, prompt skeleton, handoff, decision
 
 ## What changed from version 1
 
-Version 1 (written in April 2026) was a 100 KB practitioner's guide developed during the project, as well as raw project documents. It described a method that worked for refactoring phases. However it broke on the next feature phase: the prompt-writing sessions stopped following the guide they were given, and four rounds of audits were needed to find the defects in the produced prompts. Version 2 of the guide is rewritten with the following in mind:
+Version 1 (written in April 2026) was a 100 KB practitioner's guide developed during the project, as well as raw project documents. It described a method that worked for refactoring phases. However it broke on the next feature phase: the prompt-writing sessions stopped following the guide they were given, and four rounds of audits were needed to find the defects in the produced prompts. Version 2 of the guide is acting on these lessons and rewritten with the following in mind:
 
-- Every fact embedded in a prompt is a liability; the method now minimizes facts and pins each one to a live query.
+- Every fact embedded in a prompt is a liability. The method now keeps facts to a minimum and pins each one to a live query.
 - Rules need to be enforced by a linter instead of written as prose, because prose rules lose force as their number grows. In the batches after the linter went in, the linted defect classes did not come back; the ones that relied on "read the guide more carefully" did.
-- A prompt that contains finished code has moved verification from the compiler to human reviewers. Compile it before dispatch, or specify intent and let the agent write it.
-- Verification effort must be tiered by risk, or it grows until it exceeds production effort.
-- State lives in the repository that is the fact and source of truth. Chat memory, planning notes, and "we decided" are not state until they are committed.
+- A prompt that contains finished code moves verification from the compiler to human reviewers. So - compile it before dispatch prompt to the agent, or describe the intent and let the agent write the code.
+- Verification effort must be tiered by risk; otherwise it grows until it exceeds production effort.
+- State lives in the repository - that is the fact and the source of truth. Chat memory, planning notes, and "we decided" are not state until they are committed.
 
 The full list is in [CHANGELOG.md](CHANGELOG.md).
 

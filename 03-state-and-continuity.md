@@ -74,17 +74,17 @@ One more rule: a plan or calendar that changes a logged decision writes the supe
 
 ## 3.5 Restarting after a pause
 
-A pause longer than a few weeks turns three things that used to agree into three sources that may not: the repository, the planning documents, and the last conversation. Treat them as such.
+A pause of more than a few weeks pasuing of development of a project. Three sources that used to agree - the repository, the planning documents and the last conversation - may not agree anymore. Treat them as three separate sources and check each one.
 
-Restart protocol, in order (using the project as a reference):
+Restart protocol, in this order (the source project is the example):
 
-1. **Environment.** Confirm every system you deploy to still answers and reports the last version code (to use the project - the version that was flashed into boards); confirm the toolchain is at the pinned version (auto-updated toolchains silently drop local patches); run one no-op build; confirm each agent platform still connects.
-2. **Repository.** `git log` since the last known commit; open issues and milestones; the state file's `Last verified` date. Anything the last conversation said was "done" that is not in the log or on the tracker is *not done*.
-3. **Documents.** For each plan the next phase depends on: does its date predate the last refactor? Does it contradict the state file? Rank by the source-of-truth hierarchy and record which is wrong.
-4. **Conversation.** Read the last working session end to end. Extract its deliverables (bundles, edit lists, closure commands) and check each against step 2. Unapplied deliverables become the first PR.
-5. **One housekeeping PR** that corrects stale documents, closes shipped-but-open issues, applies unapplied fixes, and bumps `Last verified` with the step-1 results. Only then dispatch the next code step.
+1. **Environment.** Check that every system you deploy to is responsive and reports the version you last deployed (in the source project - the firmware version flashed on each board). Check that the toolchain is still at the pinned version - auto-updated toolchains quietly drop local patches. Run one build that changes nothing. Check that every AI agent platform still connects.
+2. **Repository.** Read `git log` since the last commit you know, the open issues and milestones, and the `Last verified` date in the state file. Important: anything the last conversation called "done" that is not in the log or on the tracker is *not done*.
+3. **Documents.** For each plan the next phase depends on, ask: is it older than the last refactor? Does it contradict the state file? Rank the sources by the hierarchy in [Section 2.5](02-operating-model.md#25-source-of-truth-hierarchy) and write down which one is wrong.
+4. **Conversation.** Read the last working session from start to finish - not a summary. List what it produced (prompt bundles, edit lists, closure commands) and check each item against step 2. Whatever was never applied becomes the first PR.
+5. **One housekeeping PR.** It corrects the stale documents, closes issues for work that already shipped, applies the fixes that were never applied, and updates `Last verified` with the results of step 1. Only after it merges does the next code step go out.
 
-> **From the source project.** The restart found: a bundle of eight prompt fixes produced and never committed; three issues open for work shipped in May; the project's memory notes recording the closures as done; a critical bug listed as open in three documents and resolved in the code; and a v1.0 date set on the assumption that the bug was still open. The housekeeping PR was one day. Discovering the same facts mid-step would have been a week.
+> **From the source project.** The restart found: a bundle of eight prompt fixes that was produced and never committed; three issues still open for work that shipped in May; the project's memory notes recording those closures as done; a critical bug listed as open in three documents while the code had fixed it; and a v1.0 date set on the assumption that the bug was still open. The housekeeping PR that fixes all of this is about one day of work. Finding the same facts in the middle of a code step would have cost far more.
 
 Checklist: [`templates/restart-checklist.md`](templates/restart-checklist.md).
 
