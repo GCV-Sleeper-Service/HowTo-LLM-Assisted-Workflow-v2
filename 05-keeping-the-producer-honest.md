@@ -44,7 +44,7 @@ Here is what runs before any prompt goes to the coding agent. Mechanical whereve
 3. **Anchor by symbol.** A `file:line` reference without a re-verify command next to it is a defect - lint it once the class comes back (L10 in the lint starter).
 4. **Self-contained prompts.** Any "see <other prompt>" in a scope or constraint section fails lint.
 5. **Compile before dispatch.** If a prompt carries code that ends up in a compiled artifact, the producer drops it into a scratch branch and runs the assembly step and a syntax-only compile. One compile replaces the declaration-order reading that every auditor would otherwise have to do.
-6. **Audit by risk tier.** Low tier: lint only. Medium: lint plus one independent auditor with the audit template. High: two AI auditors from different model families, reconciled in one short file. We need tow because with one auditor there is no reconciliation file. And no self-report file from the producer - what the producer says about its own reasoning is input, not evidence (F-8).
+6. **Audit by risk tier.** Low tier: lint only. Medium: lint plus one independent auditor with the audit template - with one auditor there is nothing to reconcile, so no reconciliation file. High: two AI auditors from different model families, because different families catch different defects; their findings are reconciled in one short file. And no self-report file from the producer - what the producer says about its own reasoning is input, not evidence (F-8)..
 7. **Precedence line.** Every prompt bundle says which document wins when two disagree. On the source project the process guide wins over the prompt-writing methodology. Without that line, the producer follows whichever document it read last.
 
 Audit template: [`templates/consolidated-audit.template.md`](templates/consolidated-audit.template.md) covers both prompt-bundle audits and code-PR audits. Lint starter: [`templates/lint-rules-starter.md`](templates/lint-rules-starter.md).
@@ -53,7 +53,7 @@ Audit template: [`templates/consolidated-audit.template.md`](templates/consolida
 
 Simple rule: once a rule has a lint check, that rule's sentence is __deleted__ from the guide. From then on the linter enforces it, and nobody has to remember it.
 
-The number of prose rules goes down from phase to phase, while the number of lint rules goes up is the evidence that this method works. If the producer-facing guide gets longer after an incident, you have written the incident down - you have not stopped it from happening again. Treat that as a problem to fix.
+The evidence that the method works: the number of prose rules goes down from phase to phase, while the number of lint rules goes up. If the producer-facing guide gets longer after an incident, you have written the incident down - you have not stopped it from happening again. Treat that as a problem to fix.
 
 Keep one producer-facing contract of about 150 lines, with only the binding MUSTs, most of them machine-checkable. Everything else is reference material that a session opens when it needs it.
 
