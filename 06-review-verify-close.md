@@ -14,7 +14,7 @@ The working order of code reviews is five reviews per step, in the following seq
 
 - Three inline AI reviewers that run automatically on the PR platform once the PR is marked ready for review (the source project is on GitHub and uses three different model families)
 - After that: two external whole-PR reviewers on other platforms
-- Finally, one structured multi-turn review whose findings feed the consolidated audit
+- The second of the two external reviews is a structured multi-turn review, and its findings feed the consolidated audit (it is one of the five, not a sixth)
 
 Above was the source project's default and it does not change with the risk tier. The tier changes producer-side audits and prompt style (see [Section 2.4 in Chapter 2](02-operating-model.md#24-risk-tiers)). A project may set a different default, but it sets it once.
 
@@ -37,7 +37,7 @@ The coding agent writes it inside the PR for any non-trivial step (new feature, 
 - The prompt-quality score: fix cycles, checkpoint saves, preventable review findings, autonomous decisions
 - Unimplemented recommendations and where each one was routed
 
-The score is the method's feedback loop. A step with zero fix cycles means the prompt was complete; a checkpoint save means the prompt was wrong and the checkpoint caught it; a preventable finding means the prompt had a gap the reviewers filled. Track them per phase (§6.5).
+The score is the method's feedback loop, and it is an indicator, not a proof. A step with zero fix cycles is consistent with a complete prompt - and also with defects nobody has found yet; a checkpoint save means the prompt was wrong and the checkpoint caught it; a preventable finding means the prompt had a gap the reviewers filled. Track them per phase (§6.5), next to escaped defects and their severity, and treat a change in the numbers as a question to investigate rather than a conclusion: task difficulty, models and operator experience change too.
 
 ## 6.3 Evidence from the running system
 
@@ -70,7 +70,7 @@ Lesson to learn: skipping closure is how the source project arrived at a plan th
 | Fix cycles per step | Prompt quality | 0 low / ≤1 medium / ≤2 high | >3 on any step |
 | Steps per feature phase | Scoping accuracy | 6–8 | >12 |
 | Wall-clock per step | Execution efficiency | ≤3 h operator time | consistently >4 h |
-| Checkpoint saves | Checkpoints catching prompt errors | >0 | 0 for a whole phase (checkpoints too weak) |
+| Checkpoint saves | Checkpoints catching prompt errors | >0 | 0 for a whole phase: check whether the checkpoints are too weak or the prompts were simply right |
 | Preventable review findings | Prompt gaps | falling phase over phase | rising |
 | Verification-to-production ratio | Process weight | ≤2:1 sessions | ≥5:1 (the audit arms race, pitfall 6) |
 

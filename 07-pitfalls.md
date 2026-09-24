@@ -21,7 +21,7 @@ All twelve occurred on the source project.
 
 ## From the list above - notes on the ones that hurt most
 
-**6 and 7 together - the process trap.** From the inside they feel like diligence, __and__ they take you in the wrong direction! How to recognize it: the documents being produced are *about the process* and not *about the product* - audits of prompts, audits of audits, reconciliations of audits, methodology reviews by four model families. Each one of them was good on its own. Together they took more time than implementing the features would have. The way out is always the same: apply the fixes already written, freeze the meta-work, ship the lowest-risk step, measure, move on.
+**6 and 7 together - the process trap.** From the inside they feel like diligence, __and__ they take you in the wrong direction. How to recognize it: the documents being produced are *about the process* and not *about the product* - audits of prompts, audits of audits, reconciliations of audits, methodology reviews by four model families. Each one of them was good on its own. Together they took more time than implementing the features would have. The way out is always the same: apply the fixes already written, freeze the meta-work, ship the lowest-risk step, measure, move on.
 
 **8 - the one a compiler would have caught.** Two of three auditors found a declaration-order error in C++ code embedded in a prompt. The audit itself said that no automated check was possible without a real compile, and put the compile out of scope. That was the mistake. A syntax-only compile of the assembled file takes seconds and gives the same answer every time; a human (or an AI) reading C++ inside a prose document does neither.
 

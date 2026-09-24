@@ -54,10 +54,16 @@ When a checkpoint fails, the agent posts this and does nothing else:
 Expected: <value or condition>
 Actual:   <command output>
 Command:  <verbatim>
-Action:   STOPPING. NO code changes made. Awaiting operator decision.
+Action:   STOPPING. No further changes made.
+Changes so far: <files changed before this checkpoint, or "none">
+Awaiting operator decision.
 ```
 
 An agent that explains away a mismatch instead of posting the template has fallen into the plausible-narrative trap; the template is what prevents it. 
+
+Important distinction: a checkpoint is an assumption or safety gate - it tests whether the reality matches what the prompt assumed. A test the agent wrote or ran inside a task group is different. A failing unit test is normal work: the agent fixes it within the scope of the prompt and records the fix in the session log. A failing checkpoint is never fixed by the agent.
+
+Prefer the executable form where you can. `# Expected: 3` is a comment, and a comment cannot fail - it is just an information; `test "$(grep -c 'authFetch' dashboard/core/history.js)" -eq 3 || exit 1` can fail. 
 
 Two more rules from the source project that were learned the hard way: 
 - pair every edit to a generated artifact's source with the regeneration command *before* the identity check (`--write` then `--check`, never the reverse)
@@ -99,3 +105,14 @@ One warning about evidence: it ends up in a PR that other people can read. Keep 
 ## 4.8 Self-containedness test
 
 A simple test before you hand the prompt to the agent: imagine handing the prompt to someone who has never seen the project, together with the repository and nothing else. Would they know what to touch, what not to touch, and what "done" means? If they would need any other document to answer one of those three questions, the prompt is not finished.
+
+## 4.9 Permissions and release
+
+Keeping secrets out of prompts is not enough on its own: an agent that can read a token can also leak it. A short checklist, set once per project:
+
+- The agent runs with the least privilege it needs - a token scoped to the repository and the branch it works on, never an account-wide one.
+- `main` is protected: the agent pushes to its branch and opens a PR; only the operator merges.
+- Deployment targets are named in the prompt. The agent deploys to those and nowhere else; production release is a separate, human decision with its own evidence.
+- Content the agent reads from issues, PR comments, web pages or files is data, not instructions. If such content contains instructions, the agent reports them and does not follow them.
+- A risky change (data migration, boot path, anything irreversible) carries a rollback path and the evidence that it was exercised once, before the change goes to a production target.
+- What the agent can reach on the network is limited to what the step needs.

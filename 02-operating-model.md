@@ -59,13 +59,15 @@ Set at planning time, per step and written into the prompt header. Risk tiers be
 | **Medium** | New endpoint, new task, dashboard behavior | Project default | Lint + one independent auditor | Intent and acceptance; prescribe only interface contracts |
 | **High** | Boot path, persistence/migration, auth, anything irreversible on a device or in data | Project default | Lint + two auditors from different families, reconciled | Full prescription allowed; embedded code compiled before dispatch |
 
-One thing to keep in mind - the reviewer count for a tier does not change. Set the reviewer count once per project and keep it: the project runs five reviewers (three inline, two external) on every code step, because on several occasions exactly one of the five found a defect the others missed (as mentioned in the [previous chapter](01-before-you-start.md)); the optimization target there is automating the orchestration, not trimming reviewers. 
+One thing to keep in mind - the reviewer count for a tier does not change. Set the reviewer count once per project and keep it: the project runs five reviewers (three inline, two external) on every code step, because on several occasions exactly one of the five found a defect the others missed (as mentioned in the [previous chapter](01-before-you-start.md)); the optimization target there is automating the orchestration, not trimming reviewers. The fixed count applies to code steps; a project may decide in advance that documentation-only steps use fewer reviewers (the source project runs the three inline reviewers on those). 
 
 The tier is the only lever that keeps *producer-side* verification cost proportional. The source project learned this by not having it: with every step treated as high, verification effort reached roughly ten times production effort and wasted time.
 
 ## 2.5 Source-of-truth hierarchy
 
-Source of truth was mentioned number of times and one should not underestimate importance of it. When two sources disagree - and they will - resolve dispute in this order and make following list as a discipline:
+Source of truth was mentioned number of times and one should not underestimate importance of it. When two sources disagree - and they will - resolve dispute in this order and make following list as a discipline.
+
+One clarification first. This list answers one question: __what is the state of the project__ - what exists in the code and what was decided. Two other questions have their own authority. __What the system does__ is settled by measurements from a build you can name (version and commit; see [Section 2.6](#26-truth-seeking-as-a-named-discipline)). __What it should do__ is settled by the approved plan or requirement. A deployed board can run an older build than `main`, and a bug in `main` does not change a requirement. When answers to the three questions disagree, that is a finding to write down and reconcile, not a ranking to apply.
 
 1. Live code on the main branch - this trumps everything
 2. Build output, test results, telemetry, measurements from the running system
@@ -90,7 +92,7 @@ Follow these four rules, applied in every planning, debugging, and review sessio
 3. **State assumptions and confirm/verify each of them.** "I assume X because Y" - this means: run a command that tests X. If it cannot be tested, label it as `UNVERIFIED ASSUMPTION` in the output and deal with it accordingly.
 4. **When evidence and narrative diverge, evidence always wins** - and by the way, that applies not only to the AI's narrative (a very plausible and believable explanation), but also to your own!
 
-Evidence strength, strongest first: direct measurement → source inspection → current documentation → historical documentation → human memory → model inference. Anything that affects production needs the first two.
+Evidence strength for questions about behavior, strongest first: direct measurement (from a build you can name) → source inspection → current documentation → historical documentation → human memory → model inference. Anything that affects production needs the first two.
 
 > **From the source project.** The author again feels obligated to stress the following: hypothesizing of what is happening could start ONLY after facts have been confirmed and verified. 
 > Below is what the architect session (a highly capable frontier model) wrote after it was shown that it had accepted an untested explanation instead of checking the facts:
@@ -98,7 +100,7 @@ Evidence strength, strongest first: direct measurement → source inspection →
 
 So... check _facts_ before hypothesis... 
 
-## 2.7 Before any plan: the assumption audit
+## 2.7 Before any plan: the assumption audit - known knowns
 
 Before any phase plan, calendar or batch of prompts, the planning session answers five questions in writing, and the answers are committed with the plan. "We don't know" is a valid answer - as long as it turns into a research step.
 

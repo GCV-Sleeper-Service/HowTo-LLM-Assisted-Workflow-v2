@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.2 - 2026-09 (external review)
+
+Changes made in response to an independent review of v2.1 (24 September 2026); the review's findings were verified before being acted on.
+
+- Templates: the PRE-PR scope gate now checks committed, staged and unstaged changes and untracked files against the allowed set (the old `git diff --name-only` saw only unstaged changes); the checkpoint-failure comment reports changes made so far instead of claiming none; generated artifacts are "not edited by hand" rather than "not modified"; a missing `setup-and-review.template.md` is added; the assumption audit gains a platform-capability citation table; `lint-prompts-starter.sh` is a minimal runnable linter with pass/fail behavior and a baseline mode.
+- Chapter 2: the source-of-truth list is scoped to "what is the project's state"; behavior is settled by version-identified measurements and intent by the approved plan; documentation-only steps may use fewer reviewers if decided in advance.
+- Chapter 4: checkpoints (stop) distinguished from ordinary failing tests (fix within scope); executable checks preferred over comment expectations; new Section 4.9 on permissions and release (least privilege, protected main, named deployment targets, untrusted content, rollback evidence).
+- Chapter 5: a linted rule keeps one line of intent; only its explanation is deleted.
+- Chapter 6: KPI wording no longer treats zero fix cycles as proof of completeness; the structured review is identified as one of the five, not a sixth.
+- Chapter 1 and README: "every session starts from zero" softened to "assume no reliable state"; file-size figures and reviewer-detection percentages labeled as this project's observations and estimates; results table renamed "recorded"; a legend for observed / recommended / mandatory statements; a new one-page minimum workflow (`00-minimum-workflow.md`); an adaptation table for other kinds of development; an authorship disclosure.
+- Copyedits from the review.
+
 ## v2.1 - 2026-09 (corrections)
 
 - Factual corrections: pull-request count; what the audits found and what was left open; the lint evidence stated with its sample size; the source project's lint rules listed as they are; the quote in Section 2.6 attributed to the architect session; the May-September gap described as a pause, not a process failure.
@@ -8,7 +20,7 @@
 - Templates: the consolidated audit is completed after the last review round, before merge; the lint starter separates the source project's rules from candidates.
 - Author byline, `LICENSE.txt`, `CITATION.cff`.
 
-## v2.0 - 2026-09 (rewrite)
+## v2.0 - 2026-09 (complete rewrite)
 
 **Structure.** One README, seven chapters of 10–15 minutes each, a `templates/` folder you copy, and an `examples/` folder that cites the source project by path and commit. Version 1's 100 KB guide and eight raw project documents are superseded.
 

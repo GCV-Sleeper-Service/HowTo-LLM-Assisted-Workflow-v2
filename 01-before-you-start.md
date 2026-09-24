@@ -13,7 +13,7 @@ The table is blunt on purpose. Why? Because every "cannot/do not" in the rows be
 
 | Agents reliably do | Agents reliably do not |
 | --- | --- |
-| Translate a precise, bounded instruction into working code, tests, and matching docs | Hold state between sessions! Every session starts from zero and reconstructs the world from what you hand it |
+| Translate a precise, bounded instruction into working code, tests, and matching docs | Keep reliable project state between sessions. Some tools offer memory files or notes; treat those as hints, never as state. Assume each session reconstructs the world from what you hand it (see [Section 3.6](03-state-and-continuity.md#36-what-chat-memory-is-for)) |
 | Apply a __pattern they already know__ consistently across many files | Verify their own assumptions unless a command in the prompt forces it |
 | Find defects when given a focused specific checklist and a diff  | Resist a plausible explanation - they will build a sophisticated and easy to believe theory __before__ running the one-line check that falsifies it |
 | Run builds, tests, deployments, and post the output | Notice that a fact stated in the prompt can be stale - a wrong IP, a renamed file, a moved function is executed as written without checking first |
@@ -28,7 +28,7 @@ When one of above three is missing, the output is: confident, plausible (and bel
 
 Why this is important - an agent edits a file it can hold whole. On the source ESP32 project, agents began making partial edits and started missing cross-references once files passed roughly 800 lines. In the project there were two monoliths (a 4,300-line C++ header and a 4,000-line JavaScript file). As a result, each needed a dedicated refactoring phase to split into 8–12 fragments assembled at build time. 
 
-Those two phases translated into a month time spent into refactor and delivered zero features. So, avoid this costly lesson by following the rules:
+Those two phases translated into a month time spent into refactor and delivered zero features. So, avoid this costly lesson by following the rules below. One caution about the numbers: 800 and 2,000 lines are what the source project observed, not laws of nature - the same project still edits a 2,300-line handler with checkpoints. The reliable signal is your own fix-cycle count and partial edits; the size at which they rise is your threshold.
 
 
 - **File sizes to edit: plan the split when a file crosses ~2,000 lines, not when agents start failing.** When agents start failing, it is already late - the failure looks like rising fix cycles due to coding errors (from 0–1 to 3+), not like a context error.
@@ -49,7 +49,7 @@ Your numbers for your own project most likely will be different. But the importa
 
 ## 1.4 Why more than one vendor and models
 
-Not for redundancy - for diversity and failsafe. On the source project one reviewer caught roughly 60 % of defects, three caught ~85 %, five ~92 %, and the incremental catches from reviewers four and five were rare but occasionally critical (example - a socket-level security defect found just by one reviewer from five). Different model families fail differently; the same family reviewing its own output shares its blind spots. So - employ different models from different vendors.
+Not for redundancy - for diversity and failsafe. On the source project the operator's estimate from the review records is that one reviewer caught roughly 60 % of defects, three about 85 %, five about 92 % (an estimate, not a measured detection rate), and the incremental catches from reviewers four and five were rare but occasionally critical (example - a socket-level security defect found just by one reviewer from five). Different model families fail differently; the same family reviewing its own output shares its blind spots. So - employ different models from different vendors.
 
 The price is the time spent on reviews: triggering five reviewers on three platforms and correlating their findings took 30–60 minutes per step.
 
@@ -67,12 +67,12 @@ You - __the Operator__ - are the driver behind the wheel, not a passenger. Here 
 
 > **From the source project.** The operator's own note when the project resumed after a pause: "this is interesting... the sessions that produce prompts for the coding agents did not themselves follow the guide they produced!"
 
-The agents had done exactly what the prompts said. But the prompts were wrong! [Chapter 5](05-keeping-the-producer-honest.md) is about that.
+The agents had done exactly what the prompts said. But the prompts were wrong. [Chapter 5](05-keeping-the-producer-honest.md) is about that.
 
 ## 1.6 Checklist before the first phase
 
 - [ ] Every generated artifact has a source and a build step; nobody edits artifacts
-- [ ] No source file over ~2,000 lines. If more than that, a refactoring step is your first step
+- [ ] No source file over your size threshold (the source project used ~2,000 lines). If there is one, a refactoring step is your first step
 - [ ] The operators and the agent operate in the same environment - a build, a test suite, and a deployment for example can run from a shell - agents will run them as well
 - [ ] Roles assigned to models: Planner model, Runner/Coder and Reviews (see [Chapter 2](02-operating-model.md))
 - [ ] `CURRENT-STATE.md`, `AGENTS.md`, a decision log, and CI path filtering exist (see templates in this repo)

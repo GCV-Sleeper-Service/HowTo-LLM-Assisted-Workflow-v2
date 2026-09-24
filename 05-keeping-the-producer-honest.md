@@ -10,11 +10,11 @@ The fix is a short list of mechanical gates that run before dispatch, a linter t
 
 ## 5.1 What went wrong on the source project
 
-Example: batch 1 prompts of one feature phase were produced by a Prompt Producer (highly capable Frontier model) session. In that session the Producer had been told to read the process guide (which already had non-trivial number of rules and requirements) and produce the prompt according to the planned phase. The prompts the session produced put documentation "after merge" (while the guide says that they need to be in-PR), pushed device testing to the human (the guide says the agent does all non-hardware testing), used a stale board address and a renamed config file (the state file in the repo had the right ones), and set scope checkpoints that the canonical version-bump tool tripped. Upon detecting these, batch 2 session fixed those and introduced new problems: a numeric constant copied from an old prompt, a changelog with pre-filled byte counts, line-number anchors, a scope section that pointed at another prompt, and a code insertion directive that would not compile.
+**Example**: batch 1 prompts of one feature phase were produced by a Prompt Producer (highly capable frontier model) session. In that session the Producer had been told to read the process guide (which already had non-trivial number of rules and requirements) and produce the prompt according to the planned phase. The prompts the session produced put documentation "after merge" (while the guide says that they need to be in-PR), pushed device testing to the human (the guide says the agent does all non-hardware testing), used a stale board address and a renamed config file (the state file in the repo had the right ones), and set scope checkpoints that the canonical version-bump tool tripped. Upon detecting these, batch 2 session fixed those and introduced new problems: a numeric constant copied from an old prompt, a changelog with pre-filled byte counts, line-number anchors, a scope section that pointed at another prompt, and a code insertion directive that would not compile.
 
 Audit: four independent methodology audits reviewed the process. The one that consolidated them cataloged eight producer failure modes (below) and a fix list. Most prompt fixes were applied in the next two PRs; the last four findings of the final audit, and the process-level guardrails, were still open when development was paused for reasons unrelated to the method. 
 
-Verification effort of the produced prompts (are they going to do what they supposed to do) reached roughly __ten times production effort__.
+Verification effort of the produced prompts (are they going to do what they are supposed to do) reached roughly __ten times production effort__.
 
 Here are the eight failure modes that are encountered in the Producer session on ESP32 project, generalized list:
 
@@ -51,7 +51,7 @@ Audit template: [`templates/consolidated-audit.template.md`](templates/consolida
 
 ## 5.4 The rule budget
 
-Simple rule: once a rule has a lint check, that rule's sentence is __deleted__ from the guide. From then on the linter enforces it, and nobody has to remember it.
+Simple rule: once a rule has a lint check, its __explanation__ is deleted from the guide and one line of intent stays, linked to the check. From then on the linter enforces the pattern, and nobody has to remember the explanation. Keep the line of intent, because a pattern check catches its pattern and not the whole rule: on the source project the check for testing handed to the human matches section headers, and a body sentence that does the same thing passes it.
 
 The evidence that the method works: the number of prose rules goes down from phase to phase, while the number of lint rules goes up. If the producer-facing guide gets longer after an incident, you have written the incident down - you have not stopped it from happening again. Treat that as a problem to fix.
 
