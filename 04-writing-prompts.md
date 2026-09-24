@@ -98,4 +98,4 @@ One warning about evidence: it ends up in a PR that other people can read. Keep 
 
 ## 4.8 Self-containedness test
 
-A simple test before you handle the prompt to the agent: imagine handing the prompt to someone who has never seen the project, together with the repository and nothing else. Would they know what to touch, what not to touch, and what "done" means? If they would need any other document to answer one of those three questions, the prompt is not finished.
+A simple test before you handle the prompt to the agent: imagine hand the prompt to someone who has never seen the project, together with the repository and nothing else. Would they know what to touch, what not to touch, and what "done" means? If they would need any other document to answer one of those three questions, the prompt is not finished.
