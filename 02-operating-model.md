@@ -43,7 +43,7 @@ flowchart LR
 ```
 
 Three properties matter: 
-- the gates before handling prompt to agent are mechanical where possible (see [Chapter 5](05-keeping-the-producer-honest.md))
+- the gates before hand prompt to agent are mechanical where possible (see [Chapter 5](05-keeping-the-producer-honest.md))
 - a failed checkpoint stops the agent; it never "fixes" the code to make the check pass
 - and the state the next step reads was written inside this step's PR, so nothing is reconstructed from memory.
 
