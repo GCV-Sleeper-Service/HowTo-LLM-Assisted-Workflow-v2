@@ -43,7 +43,7 @@ Version 1 (written in April 2026) was a 100 KB practitioner's guide developed du
 
 - Every fact embedded in a prompt is a liability. The method now keeps facts to a minimum and pins each one to a live query.
 - Rules need to be enforced by a linter instead of written as prose, because prose rules lose force as their number grows. In the batches after the linter went in, the linted defect classes did not come back; the ones that relied on "read the guide more carefully" did.
-- A prompt that contains finished code moves verification from the compiler to human reviewers. So - compile it before dispatch prompt to the agent, or describe the intent and let the agent write the code.
+- A prompt that contains finished code moves verification from the compiler to human reviewers. So - compile it before you hand the prompt to the agent, or describe the intent and let the agent write the code.
 - Verification effort must be tiered by risk; otherwise it grows until it exceeds production effort.
 - State lives in the repository - that is the fact and the source of truth. Chat memory, planning notes, and "we decided" are not state until they are committed.
 
