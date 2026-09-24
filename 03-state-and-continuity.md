@@ -74,7 +74,7 @@ One more rule: a plan or calendar that changes a logged decision writes the supe
 
 ## 3.5 Restarting after a pause
 
-A pause of more than a few weeks pasuing of development of a project. Three sources that used to agree - the repository, the planning documents and the last conversation - may not agree anymore. Treat them as three separate sources and check each one.
+A pause of more than a few weeks in a project's development changes things. Three sources that used to agree - the repository, the planning documents and the last conversation - may not agree anymore. Treat them as three separate sources and check each one.
 
 Restart protocol, in this order (the source project is the example):
 
