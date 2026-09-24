@@ -66,6 +66,8 @@ This guide grew out of the [ESP32-GW-multi-sensor](https://github.com/GCV-Sleepe
 
 Irakli Natsvlishvili - sole author and architect of the [ESP32-BLE Gateway project](https://github.com/GCV-Sleeper-Service/ESP32-GW-multi-sensor/)
 
+How this guide was written: the text was drafted with AI assistance (Claude), working from the project's own documents, session records and audits, and then checked, corrected and rewritten by the author, who owns every claim in it. That is the method the guide describes, applied to the guide itself.
+
 ## License
 
 MIT - see [LICENSE.txt](LICENSE.txt).
