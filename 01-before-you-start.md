@@ -31,7 +31,7 @@ Why this is important - an agent edits a file it can hold whole. On the source E
 Those two phases translated into a month time spent into refactor and delivered zero features. So, avoid this costly lesson by following the rules below. One caution about the numbers: 800 and 2,000 lines are what the source project observed, not laws of nature - the same project still edits a 2,300-line handler with checkpoints. The reliable signal is your own fix-cycle count and partial edits; the size at which they rise is your threshold.
 
 
-- **File sizes to edit: plan the split when a file crosses ~2,000 lines, not when agents start failing.** When agents start failing, it is already late - the failure looks like rising fix cycles due to coding errors (from 0–1 to 3+), not like a context error.
+- **File sizes to edit: pick a split threshold for your project and act on it before agents start failing.** The source project used ~2,000 lines. When agents start failing, it is already late - the failure looks like rising fix cycles due to coding errors (from 0–1 to 3+), not like a context error. Partial edits and missed cross-references tell you where your own threshold is.
 - **Many vs. One: prefer many small files with a deterministic assembly step over one large file.** Process: agents edit fragments; a script produces the artifact; a CI check confirms the artifact matches the fragments. Important: generated files are never edited by hand.
 - **Agent budget: reading too, not just editing.** A planning session that reads a 15 K-token methodology guide, a 30 K-token phase plan, and a prompt bundle has spent 60–80 K tokens before producing *anything*. See [Chapter 3](03-state-and-continuity.md) on session types and reading budgets.
 - **Prompt sizes - they count against the same context window.** Example - a 30 KB prompt that embeds the finished code leaves the agent's context window little room to read the code it is changing.
@@ -40,7 +40,7 @@ __One important note__ - context window size is dependent on many factors - mode
 
 ## 1.3 What a step costs
 
-The cost is measured basically in Operator's time spent on a step. Measured on the source ESP32 project, one merged step of runtime code - prompt, agent run, reviews, device test, merge - took **1.5–3 hours of operator time and 7–8 LLM sessions**. Sustained cadence over 25 days of runtime-firmware work was one merged step per 1.4 calendar days. Mechanical refactoring steps ran at three to six per day.
+The cost is measured basically in Operator's time spent on a step. On the source ESP32 project, the operator's estimate for one merged step of runtime code - prompt, agent run, reviews, device test, merge - is **1.5–3 hours of operator time and 7–8 LLM sessions**. The cadence is measured from merge dates: over 25 days of runtime-firmware work, one merged step per 1.4 calendar days. Mechanical refactoring steps ran at three to six per day.
 
 Your numbers for your own project most likely will be different. But the important takeaway is following - the most expensive resource is your time. It is not tokens but the operator's attention during review orchestration as well as the high-capability model's rate limit and context window during planning. From these two rules emerge:
 
@@ -72,7 +72,7 @@ The agents had done exactly what the prompts said. But the prompts were wrong. [
 ## 1.6 Checklist before the first phase
 
 - [ ] Every generated artifact has a source and a build step; nobody edits artifacts
-- [ ] No source file over your size threshold (the source project used ~2,000 lines). If there is one, a refactoring step is your first step
+- [ ] Files above your size threshold (the source project used ~2,000 lines) are assessed, and a refactoring step is scheduled where edits are failing or the file is getting hard to change
 - [ ] The operators and the agent operate in the same environment - a build, a test suite, and a deployment for example can run from a shell - agents will run them as well
 - [ ] Roles assigned to models: Planner model, Runner/Coder and Reviews (see [Chapter 2](02-operating-model.md))
 - [ ] `CURRENT-STATE.md`, `AGENTS.md`, a decision log, and CI path filtering exist (see templates in this repo)

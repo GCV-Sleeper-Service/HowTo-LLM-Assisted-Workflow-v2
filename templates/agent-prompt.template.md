@@ -26,10 +26,11 @@ You are executing an implementation prompt. Follow these rules:
 
 ## §1 - Repository and required reading
 
-```
-git clone <repo>
-cd <repo>
-git checkout main
+The setup block (`setup-and-review.template.md`, block A) has already created your feature branch. Confirm you are on it, then read:
+
+```bash
+cd <repo path>
+test "$(git branch --show-current)" = "<feature branch>" || { echo "Wrong branch - STOP and report"; exit 1; }
 ```
 
 Read completely, in this order:
@@ -54,16 +55,16 @@ grep -c '<symbol>' <file>
 
 ## §3 - Scope boundary
 
-Files you MAY modify (complete list; nothing else):
+Files you MAY modify (complete list; nothing else). Save this list as `allowed-paths.txt` - the PRE-PR gate reads it:
 - `<path>`
 - <every file your version-bump / generator tooling touches, listed explicitly>
+- `<generated output>` - only by running `<generator command>`, never by hand
 
 Files you MUST NOT modify:
-- `<generated artifacts>`
 - `<other steps' files>`
 
 You MUST NOT:
-- <forbidden actions: e.g. run interactive deploy, edit generated files, open issues from the agent session>
+- <forbidden actions: e.g. run interactive deploy, hand-edit generated files, push to main, open issues from the agent session>
 
 ## §4 - Critical rules for this step
 
@@ -82,10 +83,11 @@ You MUST NOT:
 
 ⛔ **CHECKPOINT A**
 ```bash
-grep -c '<symbol>' <file>
-# Expected: <n>
+test "$(grep -c '<symbol>' <file>)" -eq <n> || { echo "CHECKPOINT A FAILED"; exit 1; }
 ```
 If ANY check fails: STOP, post the comment below, make no further changes.
+
+A checkpoint tests whether the world matches what this prompt assumed; the agent never fixes a failing checkpoint. A failing test inside a task group is different - it is normal work: fix it within the §3 scope and record the fix in the session log.
 
 ### Task group N - Deliverables (in this PR)
 
@@ -98,8 +100,9 @@ If ANY check fails: STOP, post the comment below, make no further changes.
 ### PRE-PR gate
 
 ```bash
-git diff --name-only
-# Expected: exactly the §3 files
+python3 scripts/scope-gate.py --allowed allowed-paths.txt --target origin/main
+# Expected: PASS. It checks committed, staged, unstaged and untracked changes against §3;
+# an allowed file that did not change is fine. Anything else: STOP.
 <lint / preflight / full test suite>
 # Expected: PASS
 ```
@@ -140,5 +143,9 @@ git diff --name-only
 Expected: <expected value or condition>
 Actual:   <command output>
 Command:  <verbatim command>
-Action:   STOPPING. NO code changes made. Awaiting operator decision.
+Action:   STOPPING. No further edits or commits.
+Changes already made: <none, or the files and task groups completed before this checkpoint>
+Working tree: <verbatim output of git status --short>
+Last completed checkpoint: <name, or none>
+Awaiting operator decision.
 ```

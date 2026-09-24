@@ -29,7 +29,8 @@ Treat the repository, the planning documents, and the last conversation as three
 
 ## 5. Housekeeping PR (doc-only, coding agent)
 
-- [ ] Apply unapplied fixes from §4
+- [ ] Re-validate each unapplied fix from §4 against the current tree before applying it - a fix written months ago can be stale too
+- [ ] Apply the documentation fixes in the housekeeping PR; code fixes go in their own code PR with the normal reviews
 - [ ] Correct stale documents from §3; add superseding decision-log lines
 - [ ] Bump `Last verified` with the §1 results
 - [ ] Post-merge: close shipped-but-open issues, merge duplicate milestones

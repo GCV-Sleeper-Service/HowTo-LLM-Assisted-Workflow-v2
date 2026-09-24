@@ -7,7 +7,7 @@ _Next action: <phase> step <id> - <one line>_
 
 ## Version and phase
 
-- **Current version:** X.Y.Z
+- **Current version:** X.Y.Z (main at `<short SHA>`)
 - **Active phase:** <name> (<steps done>/<steps total>)
 - **Last completed phase:** <name>
 - **Toolchain pins:** <framework/compiler versions the build depends on>
@@ -40,8 +40,8 @@ _Next action: <phase> step <id> - <one line>_
 
 _Source and date for every number. If older than one step, re-measure before trusting._
 
-| Target | Metric | Value | Measured on |
-| --- | --- | --- | --- |
+| Target | Deployed build (version / SHA) | Metric | Value | Measured on |
+| --- | --- | --- | --- | --- |
 | | | | |
 
 ## Unimplemented recommendations

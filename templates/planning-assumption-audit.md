@@ -39,3 +39,13 @@ If this batch's changes ran unattended for three weeks, what degrades (memory, s
 
 - [ ] None, or
 - [ ] Assembled on a scratch branch and syntax-checked on <date>: <command> → PASS
+
+## 7. Platform capabilities the plan relies on
+
+Every hardware, framework or library capability the plan depends on, with the evidence that it exists in the version you use. A capability that is unsupported or unverified turns its step into a research step with a decision gate.
+
+| Capability and use | Platform / library and exact version | Source (URL and section) | Date checked | Evidence (probe output, or why the documentation is enough) | Result and next step |
+| --- | --- | --- | --- | --- | --- |
+| | | | | | supported / unsupported / unverified → research step |
+
+If the plan relies on none, write "Not applicable" and one sentence why.

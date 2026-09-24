@@ -1,6 +1,6 @@
 # Lint rules starter
 
-A linter over `prompts/**` (and handoffs) that runs in CI on every PR touching them. Rules are ERROR unless marked WARN. Under the method, a rule is added only after its defect class has recurred, and once a rule is linted its sentence is deleted from the prose guide.
+A linter over `prompts/**` (and handoffs) that runs in CI on every PR touching them. This file is the specification; `lint-prompts-starter.sh` next to it is a minimal runnable version, with regression tests in `tests/run-tests.sh`. Rules are ERROR unless marked WARN. Under the method, a rule is added only after its defect class has recurred. Once a rule has a lint check, keep one line of its intent in the guide, linked to the check, and remove only the redundant explanation - reviewers still check the intent beyond the pattern the linter recognizes.
 
 ## Rules the source project implemented (L1-L7)
 
@@ -28,7 +28,7 @@ Each of these followed a recurrence in the source project's prompts. The IDs are
 
 ## Implementation notes
 
-- Run with `--baseline <ref>`: fail only on new ERRORs relative to the base branch, so existing debt does not block unrelated PRs; report the existing count so it can be driven down.
+- Run from the repository root with repository-relative paths. With `--baseline <ref>`, report existing violations and fail only on new ERRORs, so existing debt does not block unrelated PRs. An existing violation is the same rule on the exact same line (line numbers ignored); an invalid ref fails the run.
 - Keep pass/fail fixtures per rule under `tests/lint-prompts/`; a rule without a failing fixture is untested.
 - Required status checks must not be path-filtered, or docs-only PRs deadlock on a check that never runs; use a stub job that always reports.
 - A rule is added when its defect class has recurred, not when it can be imagined: speculative lint rules are their own maintenance surface.

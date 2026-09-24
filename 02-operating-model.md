@@ -16,7 +16,7 @@ Then roles are assigned to AI agents - usually models from different vendors. An
 
 | Role | What it does | Typical assignment | Rule |
 | --- | --- | --- | --- |
-| **Architect / planner** | Phase plans, architecture decisions, calendar, risk tiers | Highest-capability AI/LLM model, with the Operator as co-Architect, reviewer and approver | Reads live code before every answer; runs the assumption audit (see [Section 2.7](#27-before-any-plan-the-assumption-audit)) before any plan |
+| **Architect / planner** | Phase plans, architecture decisions, calendar, risk tiers | Highest-capability AI/LLM model, with the Operator as co-Architect, reviewer and approver | Reads live code before every answer; runs the assumption audit (see [Section 2.7](#27-before-any-plan-the-assumption-audit---known-knowns)) before any plan |
 | **Prompt producer** | Turns a plan step into the three-file prompt bundle | Same model class, separate session | Subject to the gates in [Chapter 5](05-keeping-the-producer-honest.md); produces prompts, never code |
 | **Coding agent** | Executes one prompt on a branch, opens the PR, runs build/test/deploy, posts evidence/documentation | Mid-tier model with repo and shell/tool access | Executes literally; stops on any failed checkpoint/gate; never edits generated files |
 | **Reviewers** | Inline and whole-PR review with severity classification, typically done by mid- to high-tier AI agents | 3 inline on the PR platform + 2 external, different model families | Assess-then-fix loop is run by the coding agent, not the reviewers |
@@ -69,8 +69,8 @@ Source of truth was mentioned number of times and one should not underestimate i
 
 One clarification first. This list answers one question: __what is the state of the project__ - what exists in the code and what was decided. Two other questions have their own authority. __What the system does__ is settled by measurements from a build you can name (version and commit; see [Section 2.6](#26-truth-seeking-as-a-named-discipline)). __What it should do__ is settled by the approved plan or requirement. A deployed board can run an older build than `main`, and a bug in `main` does not change a requirement. When answers to the three questions disagree, that is a finding to write down and reconcile, not a ranking to apply.
 
-1. Live code on the main branch - this trumps everything
-2. Build output, test results, telemetry, measurements from the running system
+1. Live code on the main branch - for what is implemented, this trumps everything below
+2. Build output, test results, telemetry, measurements from the running system - each tied to the build (version and commit) and the target it came from
 3. `CURRENT-STATE.md`
 4. The decision log
 5. The current phase plan
@@ -81,7 +81,7 @@ One clarification first. This list answers one question: __what is the state of 
 
 Archived documents are evidence, not instructions. Any plan older than the last refactoring phase is stale until re-verified. A chat transcript in which "we decided X" is level 9 from the list above, until X is in the repository.
 
-> **From the source project.** Three sources disagreed about whether the project's critical crash bug was fixed: the state file and the merged code said yes; the agent instructions, the lessons file, and the decision log said "deferred". A planning calendar was then written on the assumption it was still open. The hierarchy above settles it in ten seconds - level 1 wins. And the fix for disagreement is to fix the documentation as a PR, not a firmware phase PR.
+> **From the source project.** Three sources disagreed about whether the project's critical crash bug was fixed: the state file and the merged code said yes; the agent instructions, the lessons file, and the decision log said "deferred". A planning calendar was then written on the assumption it was still open. The hierarchy above settles what is implemented in ten seconds - level 1 wins, the fix is in the code. Whether it works on the boards is a separate question, answered by a measurement from the deployed build. And the fix for the disagreement itself is a documentation PR, not a firmware phase PR.
 
 ## 2.6 Truth-seeking as a named discipline
 

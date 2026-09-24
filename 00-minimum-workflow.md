@@ -10,7 +10,7 @@ Use this for a start - a small change, a prototype, or a first try of the method
 4. **Let the agent implement on the branch.** Agent runs the build and tests itself and posts the output. If an assumption in the task turns out to be wrong, it stops and says so; it does not adjust the check to fit.
 5. **Get one independent review.** A model from another family than the one that wrote the code, or a human. Findings are classified by severity; the agent assesses each one before fixing it (reviewers are sometimes wrong, that includes human reviewers too).
 6. **Collect the evidence.** The acceptance-criteria outputs go into the PR body verbatim. For anything that runs on hardware or against a live service, the evidence comes from the running system, not from the code.
-7. **Merge, then update the state.** You - the human - do the merge; the agent never does. The state file, the changelog entry and a three-line note on what changed and what was learned are part of the same PR, not a later one.
+7. **Update the state, then merge.** You - the human - do the merge; the agent never does. The state file, the changelog entry and a three-line note on what changed and what was learned are part of the same PR, not a later one.
 8. **Write down decisions.** Anything you decided along the way gets one line in the decision log, dated, with a link to where the reasoning is.
 
 ## What you are skipping, and when to add it back

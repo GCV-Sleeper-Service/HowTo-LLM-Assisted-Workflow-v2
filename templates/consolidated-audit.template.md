@@ -24,6 +24,8 @@ PASS | CONDITIONAL PASS (only low/medium findings, tracked) | FAIL (≥1 high fi
 
 ## 5. Prompt-quality score
 
+_An indicator, not proof: zero fix cycles is consistent with a complete prompt, and also with defects nobody has found yet. Record escaped defects and their severity in section 6._
+
 - Fix cycles:
 - Checkpoint saves:
 - Preventable review findings:

@@ -7,8 +7,9 @@ _Written inside PR #<previous step>; amend inside any later PR that changes thes
 | Item | Value | Source |
 | --- | --- | --- |
 | Version on main | | `VERSION` |
+| Commit on main (SHA) | | `git rev-parse --short origin/main` |
 | Last verified | | `CURRENT-STATE.md` |
-| Deployment targets (name → address → version) | | `CURRENT-STATE.md` |
+| Deployment targets (name → address → deployed version and commit) | | `CURRENT-STATE.md` |
 | Measurements this step depends on | | `CURRENT-STATE.md` §Measurements |
 
 ## What this step does

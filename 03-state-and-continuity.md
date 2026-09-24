@@ -13,14 +13,14 @@ This is the fact - documentation grows faster than any context window, __especia
 | Layer | Content | Size | Who reads it |
 | --- | --- | --- | --- |
 | 1 - Current state | `CURRENT-STATE.md`: version, last three steps, next three steps, open defects, measurements, unimplemented recommendations, stale documents | ~2 K tokens | Read first on every session by every agent |
-| 2 - Decisions | `decision-log.md`: one line per architectural decision, dated, with a link to the source | ~3 K tokens | Planning sessions |
+| 2 - Decisions | `decision-log.md`: one line per architectural decision, dated, with a link to the source | ~3 K tokens | Planning and prompt-production sessions |
 | 3 - Method | Prompt-writing rules, the process guide, this repository's templates | ~15 K tokens | Planning and prompt-production sessions |
 | 4 - Phase context | The step's prompt bundle plus the critical-rules subset it cites | 10–20 K tokens | Coding agents and reviewers |
 | 5 - History | Lessons, postmortems, gap catalogs, old phase results, session logs | 100 K+ tokens | Investigation only; findings are promoted to layers 1–2 |
 
 Approximate reading budgets based on the source project: 
 - planning ≈ layers 1–3 plus the relevant slice of 5 (40–60 K tokens)
-- prompt production ≈ layers 1–2 plus the current phase plan (15–25 K)
+- prompt production ≈ layers 1–3 plus the current phase plan (about 20 K tokens plus the plan, with the sizes in the table; measure your own)
 - agent execution ≈ layer 1 plus its bundle (10–15 K)
 - review ≈ layer 1 plus the diff plus the checklist (5–10 K). 
 

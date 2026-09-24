@@ -55,7 +55,7 @@ Every phase ends with one closure step whose PR contains:
 
 1. Issue sweep - every open issue tagged to the phase classified resolved / deferred (to a named milestone) / new
 2. Plan-versus-delivery comparison and a review-findings summary: what did reviewers catch that prompts should have prevented?
-3. New lessons and critical rules - and the lint rules that let old prose rules be deleted
+3. New lessons and critical rules - and the lint rules that let redundant explanation be deleted (one line of each rule's intent stays, linked to its check)
 4. Method update: new failure patterns into the pitfalls list, checkpoint learnings into the prompt template
 5. State file re-verified: `Last verified` date, open issues, stale documents, unimplemented recommendations
 6. KPI row appended (see the 6.5 below) and the models/tools used recorded, with any behavior change noticed
@@ -70,7 +70,7 @@ Lesson to learn: skipping closure is how the source project arrived at a plan th
 | Fix cycles per step | Prompt quality | 0 low / ≤1 medium / ≤2 high | >3 on any step |
 | Steps per feature phase | Scoping accuracy | 6–8 | >12 |
 | Wall-clock per step | Execution efficiency | ≤3 h operator time | consistently >4 h |
-| Checkpoint saves | Checkpoints catching prompt errors | >0 | 0 for a whole phase: check whether the checkpoints are too weak or the prompts were simply right |
+| Checkpoint saves | Prompt errors caught before they did damage | Record and investigate; no minimum | A defect escaped that a checkpoint should have caught; the same cause saved twice |
 | Preventable review findings | Prompt gaps | falling phase over phase | rising |
 | Verification-to-production ratio | Process weight | ≤2:1 sessions | ≥5:1 (the audit arms race, pitfall 6) |
 
