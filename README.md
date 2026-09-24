@@ -69,3 +69,4 @@ Irakli Natsvlishvili - sole author and architect of the [ESP32-BLE Gateway proje
 ## License
 
 MIT - see [LICENSE.txt](LICENSE.txt).
+
