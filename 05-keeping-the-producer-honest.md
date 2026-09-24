@@ -12,7 +12,7 @@ The fix is a short list of mechanical gates that run before dispatch, a linter t
 
 Example: batch 1 prompts of one feature phase were produced by a Prompt Producer (highly capable Frontier model) session. In that session the Producer had been told to read the process guide (which already had non-trivial number of rules and requirements) and produce the prompt according to the planned phase. The prompts the session produced put documentation "after merge" (while the guide says that they need to be in-PR), pushed device testing to the human (the guide says the agent does all non-hardware testing), used a stale board address and a renamed config file (the state file in the repo had the right ones), and set scope checkpoints that the canonical version-bump tool tripped. Upon detecting these, batch 2 session fixed those and introduced new problems: a numeric constant copied from an old prompt, a changelog with pre-filled byte counts, line-number anchors, a scope section that pointed at another prompt, and a code insertion directive that would not compile.
 
-Audit: four independent audits then catalogued eight producer failure modes, agreed on a fix list, and were merged as reports. Outcome: the fixes were never applied. 
+Audit: four independent methodology audits reviewed the process. The one that consolidated them cataloged eight producer failure modes (below) and a fix list. Most prompt fixes were applied in the next two PRs; the last four findings of the final audit, and the process-level guardrails, were still open when development was paused for reasons unrelated to the method. 
 
 Verification effort of the produced prompts (are they going to do what they supposed to do) reached roughly __ten times production effort__.
 
@@ -25,29 +25,29 @@ Here are the eight failure modes that are encountered in the Producer session on
 | F-3 | Device-test section names one target when the plan requires two | Coverage narrower than the pre-defined acceptance criteria |
 | F-4 | Function signature embedded without re-grep | A fact that was true last batch and not verified |
 | F-5 | Line numbers as anchors | Decays on every merge (see embedded fact liability section in [Chapter 4](04-writing-prompts.md)) |
-| F-6 | Declaration order not modelled | Code in text/prose, never compiled |
+| F-6 | Declaration order not modeled | Code in text/prose, never compiled |
 | F-7 | "The gate ran" mistaken for "the gate enforced" | A check whose failure changes nothing instead of stopping |
-| F-8 | Producer's self-analysis misattributes the root cause | Asking the drifter to explain its own drift (see the note at the bottom of [Chapter 2](02-operating-model.md)) |
+| F-8 | Producer's self-analysis misattributes the root cause | Asking the drifter to explain its own drift - its account is input, not evidence |
 
 ## 5.2 Why prose rules fail
 
-Every incident during prompt producing added a rule to the guide. At one point the project had 67 critical rules, five doctrinal documents, nine errata, fourteen issue-tracked guardrails, seven implemented lint rules and three more sketched - and a producer session's compliance with any one rule *fell* as the total number of rules rose. This is context attenuation, and it applies to the producer exactly as it applies to the agent. More prose is not a fix for prose that causes the problem.
+Every incident during prompt producing added a rule to the guide. At one point the project had 67 critical rules, nine errata, seven lint rules with an eighth planned, and a tracked list of more than a dozen guardrails still to build - and a producer session's compliance with any one rule *fell* as the total number of rules rose. This is context attenuation, and it applies to the producer exactly as it applies to the agent. More prose is not a fix for prose that causes the problem.
 
-The empirical signal from the same project is unambiguous: **every defect class that got a lint rule stopped recurring; every class handled by "read the guide more carefully" recurred.**
+The evidence from the same project points one way, although the sample is small: in the prompt batches after the linter went in, **no linted defect class came back, while two unlinted ones did** - a delay constant copied from an old prompt and a declaration-order error in embedded code.
 
 ## 5.3 The gates that work
 
 Run below before any prompt is dispatched to the coding agent. Mechanical where possible; short where not possible.
 
 1. **Live-extract block.** The producer session starts by extracting, from the state file and live `grep`, every value the prompts will embed - addresses, filenames, signatures, constants, version - into a table with the source of each. Prompts may __only__ use values from the table. The table is committed with the bundle as the batch's assumption audit.
-2. **Doctrinal value pinning.** Any number in a prompt either references a measurement the agent will perform or a live file the agent will grep. A pre-filled measured value fails lint.
-3. **Symbol anchors.** Any `file:line` reference fails lint unless followed by a re-verify command.
+2. **Doctrinal value pinning.** Any number in a prompt either references a measurement the agent will perform or a live file the agent will grep. A pre-filled measured value is a defect; lint it once the class recurs (L9 in the lint starter).
+3. **Symbol anchors.** Any `file:line` reference without a following re-verify command is a defect; lint it once the class recurs (L10 in the lint starter).
 4. **Self-containedness.** Any "see <other prompt>" in a scope or constraint section fails lint.
 5. **Compile-before-dispatch.** If a prompt embeds code destined for a compiled artifact, the producer drops it into a scratch branch, runs assembly, and runs a syntax-only compile. One compile replaces the declaration-order trace across all auditors.
 6. **Risk-tiered audit.** Low tier: lint only. Medium: lint plus one independent auditor using the audit template. High: two auditors from different model families, reconciled in one short file. No reconciliation file when there is one auditor; no self-report file from the producer - the producer's account of its own reasoning is input, not evidence (F-8).
 7. **Precedence line.** Every prompt bundle states which document governs when two conflict. On the source project the process guide governs the prompt-writing methodology; without the line, the producer picks whichever it read last.
 
-Audit template: [`templates/consolidated-audit.template.md`](templates/consolidated-audit.template.md) covers both prompt-bundle audits and PR prompt audits. Lint starter: [`templates/lint-rules-starter.md`](templates/lint-rules-starter.md).
+Audit template: [`templates/consolidated-audit.template.md`](templates/consolidated-audit.template.md) covers both prompt-bundle audits and code-PR audits. Lint starter: [`templates/lint-rules-starter.md`](templates/lint-rules-starter.md).
 
 ## 5.4 The rule budget
 
@@ -74,4 +74,4 @@ A leaner process that shows equal-or-fewer escapes at lower cost is validated by
 
 > **From the source project.** Two auditors caught the declaration-order defect (F-6); a third did not. One lesson was drawn as "single auditors miss things - mandate two." The second, cheaper lesson was "code in prose is never compiled - compile it." Both statements are true, but the fact is that only the second removes the defect class. 
 
-**When you have a failure mode, the correction of the situation that deletes it is better then the one that adds a check for such a failure.**
+**When you find a failure mode, a fix that removes it is better than a check that watches for it.**

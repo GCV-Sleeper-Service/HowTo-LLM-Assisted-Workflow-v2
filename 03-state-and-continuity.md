@@ -16,7 +16,7 @@ This is the fact - documentation grows faster than any context window, __especia
 | 2 - Decisions | `decision-log.md`: one line per architectural decision, dated, with a link to the source | ~3 K tokens | Planning sessions |
 | 3 - Method | Prompt-writing rules, the process guide, this repository's templates | ~15 K tokens | Prompt-production sessions only |
 | 4 - Phase context | The step's prompt bundle plus the critical-rules subset it cites | 10–20 K tokens | Coding agents and reviewers |
-| 5 - History | Lessons, postmortems, gap catalogues, old phase results, session logs | 100 K+ tokens | Investigation only; findings are promoted to layers 1–2 |
+| 5 - History | Lessons, postmortems, gap catalogs, old phase results, session logs | 100 K+ tokens | Investigation only; findings are promoted to layers 1–2 |
 
 Approximate reading budgets based on the source project: 
 - planning ≈ layers 1–3 plus the relevant slice of 5 (40–60 K tokens)
@@ -64,11 +64,13 @@ The handoff for step N+1 is written or amended *inside step N's PR* if step N di
 
 That is the checkpoint mechanism: every merge leaves the next session's starting point already written.
 
-A handoff is self-contained. If its scope section says "see the previous prompt", that is a blocking defect of the document — the next session may not have that prompt, and a lint rule should catch the phrase (see [Chapter 5](05-keeping-the-producer-honest.md)).
+A handoff is self-contained. If its scope section says "see the previous prompt", that is a blocking defect of the document - the next session may not have that prompt, and a lint rule should catch the phrase (see [Chapter 5](05-keeping-the-producer-honest.md)).
 
 ## 3.4 The decision log
 
 One line per decision: date, an identifier, the decision in one sentence, a link to document where the reasoning lives. Nothing else. Planning sessions read it in a minute; the full Architecture Decision Record (ADR) is opened only when a decision is being reconsidered. Every session that makes an architectural choice appends a line as a deliverable of that session.
+
+One more rule: a plan or calendar that changes a logged decision writes the superseding line in the log first. Otherwise the newest conversation silently overrides the log, and nobody notices until two documents disagree.
 
 ## 3.5 Restarting after a pause
 

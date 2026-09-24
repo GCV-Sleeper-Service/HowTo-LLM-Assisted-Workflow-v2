@@ -1,7 +1,7 @@
 # Current Project State
 
-_Last verified: YYYY-MM-DD — <what was verified: version endpoints, toolchain pin, build>_
-_Next action: <phase> step <id> — <one line>_
+_Last verified: YYYY-MM-DD - <what was verified: version endpoints, toolchain pin, build>_
+_Next action: <phase> step <id> - <one line>_
 
 ---
 
@@ -52,7 +52,7 @@ _Every recommendation from a postmortem, closure, or review lands here or as a t
 | --- | --- | --- |
 | | | |
 
-## Stale documents — do not use until updated
+## Stale documents - do not use until updated
 
 | Document | Written | Why stale |
 | --- | --- | --- |

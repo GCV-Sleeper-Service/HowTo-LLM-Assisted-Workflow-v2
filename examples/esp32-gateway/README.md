@@ -47,7 +47,7 @@ From `AGENTS.md`: five generated files, each with its source and build command, 
 
 ## 7. Lint in CI (Chapter 5)
 
-`.github/workflows/prompt-lint.yml` runs `scripts/lint-prompts.sh --baseline <base sha>` on every PR touching `prompts/**`. Rules L1–L5 and L7 (stale addresses, wrong filenames, cross-prompt references, forbidden section titles, interactive deploy, missing timeouts) fail the PR; L6 (pipeline order) warns. Added 2026-05-09 (PR #231) after the second batch of prompts repeated defect classes the first batch had already documented in prose.
+`.github/workflows/prompt-lint.yml` runs `scripts/lint-prompts.sh --baseline <base sha>` on every PR touching `prompts/**`. Rules L1-L5 and L7 fail the PR: a "Post-Merge Deliverables" section title and its variants, "(for Human)" in section headers, cross-prompt version references, a retired board address, and a renamed config filename. L6 (regeneration order) warns. Added 2026-05-09 (PR #231) after the second batch of prompts repeated defect classes the first batch had already documented in prose.
 
 ## 8. The state file (Chapter 3)
 

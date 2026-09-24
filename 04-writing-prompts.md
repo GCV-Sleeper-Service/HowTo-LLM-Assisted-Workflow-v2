@@ -4,7 +4,7 @@ What is a prompt for the coding agent?
 
 **A prompt is a contract with a literal-minded executor: bounded scope, verifiable checkpoints, executable acceptance criteria, and as few embedded facts as the job allows.** 
 
-There are two styles, chosen by risk tier. Both use the same ten-section skeleton.
+There are two styles, chosen by risk tier. Both use the same skeleton: a header and preamble, a short lessons block, and nine numbered sections.
 
 ## 4.1 The bundle: three files per step/PR
 
@@ -16,11 +16,11 @@ Producing the bundle is __the__ most expensive part of a step and the place wher
 
 So - eliminate problems before they occur, not fix them afterwards.
 
-## 4.2 The ten sections
+## 4.2 The prompt skeleton
 
 | § | Section | What it must contain |
 | --- | --- | --- |
-| 0 | Header + execution preamble | Step id, date, prerequisite state, risk tier; the five literal-execution rules (do not optimise, do not remove constraints, touch only scoped files, stop on doubt, stop on context exhaustion) |
+| 0 | Header + execution preamble | Step id, date, prerequisite state, risk tier; the five literal-execution rules (do not optimize, do not remove constraints, touch only scoped files, stop on doubt, stop on context exhaustion) |
 | L | Lessons for this step | Only the errata and lessons that apply here, one line each |
 | 1 | Repository and required reading | Clone command (if needed); files to read, in order, each with *why* - never "read the docs" |
 | 2 | Pre-implementation verification gate | Commands with expected outputs that prove the world/state matches the prompt's assumptions; any mismatch → STOP |
@@ -78,11 +78,11 @@ Rules that help to avoid such problems:
 - **Extract at production time, from the state file or a live grep - never from memory.** [Chapter 5](05-keeping-the-producer-honest.md) makes this a gate.
 - **Pin every numeric constant** to either a measurement procedure the agent runs or a live source the prompt greps. A changelog template that pre-fills "(36 bytes)" is a defect; `(<MEASURED> bytes)` with the measurement step is correct.
 - **Anchor by symbol, not line number.** `firmware/core/nvs-persistence.h: maybe_yield_nvs_scan_()` plus a re-verify grep survives every merge; `nvs-persistence.h:248` is wrong by the next one.
-- **Fewer facts are better then more checks.** The alternative, that is verification tables and auditors per fact, leads to an arms race and you lose on cost and time.
+- **Fewer facts are better than more checks.** The alternative - verification tables and auditors for every fact - leads to an arms race you lose on cost and time.
 
 ## 4.6 Two prompt styles, chosen by risk
 
-**Prescriptive.** The prompt contains the finished code and exact insertion points. Use it for high-tier steps where an agent's freedom is itself the risk (migrations, boot paths, anything irreversible) - and _only_ if the embedded code has been compiled or syntax-checked against the real tree before dispatch. A prompt with C++ in markdown has moved verification from the compiler to prose reviewers; two auditors on the source project found a declaration-order error that a syntax-only compile would have caught in seconds, and the fix then sat unapplied for months.
+**Prescriptive.** The prompt contains the finished code and exact insertion points. Use it for high-tier steps where an agent's freedom is itself the risk (migrations, boot paths, anything irreversible) - and _only_ if the embedded code has been compiled or syntax-checked against the real tree before dispatch. A prompt with C++ in markdown has moved verification from the compiler to prose reviewers; two auditors on the source project found a declaration-order error that a syntax-only compile would have caught in seconds.
 
 **Intent and acceptance.** The prompt gives scope, interface contracts with grep-at-execution checkpoints, and acceptance criteria as executable checks (grep counts, compile pass, curl output, resource deltas). The agent writes the code; CI compiles it; reviewers review a real diff. Use it for low and medium tiers. It removes the embedded-fact classes at the source rather than auditing them, at the cost of possibly one extra review round on a real diff - which is cheaper than an audit round on prose.
 
@@ -93,6 +93,8 @@ Trial the second style on one low-risk step, count escapes against the prescript
 Anything an agent _can_ do from a shell/execution environment - build, deploy, wait, curl, check the output, parse, post to the PR - it does and _should_ do. The operator does only what needs eyes or hands: visual checks, long-duration observation, physical recovery. Prompts that push testing to the operator lose the evidence trail and the agent's chance to catch its own regression.
 
 Deployment commands are non-interactive (example from the project - an interactive `run` tails live logs and will hang the agent), wrapped in a timeout, and preceded and followed by a clean build. Evidence - the curl output, the health line, the size of the binary - goes into the PR body verbatim.
+
+One warning about evidence: it ends up in a PR that other people can read. Keep credentials, tokens and private keys out of prompts, PR bodies and posted logs. Give them to the agent through environment variables or the platform's secret store, and look at what a command prints before its output is pasted anywhere.
 
 ## 4.8 Self-containedness test
 

@@ -12,11 +12,13 @@ So - review, verify, confirm. Then move on to the next step.
 
 The working order of code reviews is five reviews per step, in the following sequence: 
 
-- Three online automated AI reviewers on the PR platform once PR is created and made ready for review (for the source project repo is on GitHub with different AI model families for code reviews)
+- Three inline AI reviewers that run automatically on the PR platform once the PR is marked ready for review (the source project is on GitHub and uses three different model families)
 - After that: two external whole-PR reviewers on other platforms
-- Finally one structured multi-turn review that produces the consolidated audit 
+- Finally, one structured multi-turn review whose findings feed the consolidated audit
 
-Above was the source project's default and it does not change with the risk tier. The tier changes producer-side audits and prompt style (see [Section 2.4 in Chapter 2](02-operating-model.md#24-Risk-tiers)). A project may set a different default, but it sets it once.
+Above was the source project's default and it does not change with the risk tier. The tier changes producer-side audits and prompt style (see [Section 2.4 in Chapter 2](02-operating-model.md#24-risk-tiers)). A project may set a different default, but it sets it once.
+
+Triggering five reviewers on several platforms and collecting their findings by hand took the source project 30-60 minutes per step. Script what you can: most PR platforms expose review requests and comments through a CLI or an API, and a short script that requests every reviewer and gathers the comments into one file pays for itself within a phase.
 
 After the inline reviews land, the coding agent gets a single line instruction, which is the same every time:
 
@@ -24,11 +26,11 @@ After the inline reviews land, the coding agent gets a single line instruction, 
 
 Important: assess-then-fix matters. Here is why - reviewers are sometimes wrong. An agent that _blindly_, without confirmation implements every finding by reviewers will damage the code and make things worse (read - more time wasted fixing things) as often as it improves it. The agent's assessment comment - warranted / not warranted / not actionable, with reasons - is part of the audit trail.
 
-External reviewers also get the same structured prompt: classify findings by severity, check each acceptance criterion and propose a concrete fix. "Looks good" is not a review. A review assesses if implementation reaches the intended, predefined goals that are measurable.
+External reviewers get their own structured prompt: classify findings by severity, check each acceptance criterion and propose a concrete fix. "Looks good" is not a review. A review assesses if implementation reaches the intended, predefined goals that are measurable.
 
 ## 6.2 The consolidated audit
 
-This is written inside the PR for any non-trivial step (new feature, runtime data path, dashboard, build script, or three or more sub-fixes) has been implemented and passed all reviews. Minimum contents of the consolidated audits are:
+The coding agent writes it inside the PR for any non-trivial step (new feature, runtime data path, dashboard, build script, or three or more sub-fixes), after the last review round and before merge. Minimum contents of the consolidated audits are:
 
 - Findings by reviewers: they are grouped by severity with clarifications/details (fixed in this PR / tracked as issue #N / accepted with reason)
 - Agent autonomous decisions taken without human input, each classified as helpful / harmful / neutral
@@ -45,7 +47,7 @@ Here is a method for systems that run on hardware or against live services:
 
 - The agent deploys and posts the raw evidence into the PR: version endpoint, health telemetry, response headers, binary size against its partition.
 - Evidence must exercise the acceptance criteria as written. A `curl … | head -20` proves the endpoint answers; it does not prove a full-length response completes on the smallest environment (a board in the source project case). 
-- Long-duration behaviour gets a periodic health line in the logs and a weekly scripted sample committed alongside the state file. Most production-only failures on the source project were visible in telemetry weeks before they crashed anything.
+- Long-duration behavior gets a periodic health line in the logs and a weekly scripted sample committed alongside the state file. Most production-only failures on the source project were visible in telemetry weeks before they crashed anything.
 
 ## 6.4 Phase closure
 
@@ -56,7 +58,7 @@ Every phase ends with one closure step whose PR contains:
 3. New lessons and critical rules - and the lint rules that let old prose rules be deleted
 4. Method update: new failure patterns into the pitfalls list, checkpoint learnings into the prompt template
 5. State file re-verified: `Last verified` date, open issues, stale documents, unimplemented recommendations
-6. KPI row appended (see the 6.5 below) and the models/tools used recorded, with any behaviour change noticed
+6. KPI row appended (see the 6.5 below) and the models/tools used recorded, with any behavior change noticed
 7. Every recommendation routed: issue or state-file entry, no third option
 
 Lesson to learn: skipping closure is how the source project arrived at a plan that contradicted its decision log and a calendar that assumed an already-fixed bug was open.
@@ -70,7 +72,7 @@ Lesson to learn: skipping closure is how the source project arrived at a plan th
 | Wall-clock per step | Execution efficiency | ≤3 h operator time | consistently >4 h |
 | Checkpoint saves | Checkpoints catching prompt errors | >0 | 0 for a whole phase (checkpoints too weak) |
 | Preventable review findings | Prompt gaps | falling phase over phase | rising |
-| Verification-to-production ratio | Process weight | ≤2:1 sessions | ≥5:1 (the stall signature) |
+| Verification-to-production ratio | Process weight | ≤2:1 sessions | ≥5:1 (the audit arms race, pitfall 6) |
 
 Capture timestamps when they happen, not reconstructed at closure.
 

@@ -1,10 +1,10 @@
-   cff-version: 1.2.0
-   message: "If you use or reference this guide, please cite it as below."
-   title: "AI (LLM)-Assisted Software Development - A Working Method (v2)"
-   authors:
-     - family-names: Natsvlishvili
-       given-names: Irakli
-   version: "2.0"
-   date-released: 2026-09-22
-   url: "https://github.com/GCV-Sleeper-Service/HowTo-LLM-Assisted-Workflow-v2"
-   license: MIT
+cff-version: 1.2.0
+message: "If you use or reference this guide, please cite it as below."
+title: "AI (LLM)-Assisted Software Development - A Working Method (v2)"
+authors:
+  - family-names: Natsvlishvili
+    given-names: Irakli
+version: "2.1"
+date-released: 2026-09-23
+url: "https://github.com/GCV-Sleeper-Service/HowTo-LLM-Assisted-Workflow-v2"
+license: MIT

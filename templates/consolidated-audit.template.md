@@ -1,6 +1,6 @@
-# Consolidated audit — <step id or prompt bundle id> — PR #<n>
+# Consolidated audit - <step id or prompt bundle id> - PR #<n>
 
-_Written inside the PR. Required for any non-trivial step (new feature, runtime data path, UI, build script, or ≥3 sub-fixes) and for every prompt bundle at medium/high tier._
+_Written inside the PR, completed after the last review round and committed before merge. Required for any non-trivial step (new feature, runtime data path, UI, build script, or ≥3 sub-fixes) and for every prompt bundle at medium/high tier._
 
 ## 1. Verdict
 
@@ -28,7 +28,7 @@ PASS | CONDITIONAL PASS (only low/medium findings, tracked) | FAIL (≥1 high fi
 - Checkpoint saves:
 - Preventable review findings:
 - Autonomous decisions (h / h / n):
-- One-line judgement:
+- One-line judgment:
 
 ## 6. Process metrics for this batch
 

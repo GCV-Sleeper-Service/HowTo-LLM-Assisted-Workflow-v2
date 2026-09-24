@@ -1,9 +1,9 @@
-# <step id> — <title> (Coding-Agent Prompt)
+# <step id> - <title> (Coding-Agent Prompt)
 
 _Full self-contained implementation instructions_
 _Date: YYYY-MM-DD_
 _Prerequisite: <version/state that must be on main>_
-_Risk: LOW | MEDIUM | HIGH — <one-line reason>_
+_Risk: LOW | MEDIUM | HIGH - <one-line reason>_
 _Doctrinal precedence: where this prompt and <process guide> conflict, <process guide> governs._
 
 ---
@@ -11,10 +11,10 @@ _Doctrinal precedence: where this prompt and <process guide> conflict, <process 
 ## Universal execution preamble
 
 You are executing an implementation prompt. Follow these rules:
-1. Do NOT optimise, restructure, or "improve" these instructions. Execute them literally.
+1. Do NOT optimize, restructure, or "improve" these instructions. Execute them literally.
 2. Do NOT remove safety constraints, even if they seem redundant.
 3. Do NOT make changes to files not listed in §3.
-4. If an instruction seems wrong, STOP and flag it — do not silently fix it.
+4. If an instruction seems wrong, STOP and flag it - do not silently fix it.
 5. If you run out of context, STOP at the last completed checkpoint and report what remains.
 
 ## Lessons that apply to this step
@@ -24,7 +24,7 @@ You are executing an implementation prompt. Follow these rules:
 
 ---
 
-## §1 — Repository and required reading
+## §1 - Repository and required reading
 
 ```
 git clone <repo>
@@ -33,11 +33,11 @@ git checkout main
 ```
 
 Read completely, in this order:
-0. `CURRENT-STATE.md` — <why>
-1. `<file>` — <why; which sections>
+0. `CURRENT-STATE.md` - <why>
+1. `<file>` - <why; which sections>
 2. …
 
-## §2 — Pre-implementation verification gate
+## §2 - Pre-implementation verification gate
 
 Run BEFORE any edit. If any value differs from Expected: STOP and post the checkpoint-failure comment (below). Do not explain a mismatch.
 
@@ -52,7 +52,7 @@ grep -c '<symbol>' <file>
 # Expected: PASS
 ```
 
-## §3 — Scope boundary
+## §3 - Scope boundary
 
 Files you MAY modify (complete list; nothing else):
 - `<path>`
@@ -65,17 +65,18 @@ Files you MUST NOT modify:
 You MUST NOT:
 - <forbidden actions: e.g. run interactive deploy, edit generated files, open issues from the agent session>
 
-## §4 — Critical rules for this step
+## §4 - Critical rules for this step
 
-- Rule <n> — <one line>
+- Rule <n> - <one line>
 
-## §5 — DO-NOT list
+## §5 - DO-NOT list
 
 - Do NOT <specific prohibition from a past failure>
+- Do NOT put credentials or tokens in commands, PR bodies or logs; read them from environment variables
 
-## §6 — Implementation
+## §6 - Implementation
 
-### Task group 1 — <name>
+### Task group 1 - <name>
 
 <Prescriptive tier: exact edits with symbol anchors and compiled code. Intent tier: interface contract + acceptance checks; the agent writes the code.>
 
@@ -86,7 +87,7 @@ grep -c '<symbol>' <file>
 ```
 If ANY check fails: STOP, post the comment below, make no further changes.
 
-### Task group N — Deliverables (in this PR)
+### Task group N - Deliverables (in this PR)
 
 - `CURRENT-STATE.md`: bump Last verified; What just shipped; What's next; open issues; unimplemented recommendations
 - `<changelog>`: entry under <version>
@@ -103,15 +104,15 @@ git diff --name-only
 # Expected: PASS
 ```
 
-## §7 — Acceptance criteria
+## §7 - Acceptance criteria
 
 - [ ] Every checkpoint and the PRE-PR gate pass with the stated values
 - [ ] <executable criterion: grep count / compile / curl output / resource delta>
-- [ ] Deployment evidence posted verbatim in the PR body (if the step changes runtime behaviour)
-- [ ] All §6 deliverables committed before `gh pr ready`
+- [ ] Deployment evidence posted verbatim in the PR body (if the step changes runtime behavior)
+- [ ] All §6 deliverables committed before merge; the consolidated audit is completed after the last review round
 - [ ] PR title: `<step id>: <title> (Fixes #<issue>)`
 
-## §8 — PR description skeleton
+## §8 - PR description skeleton
 
 ```
 ## Pre-implementation verification
@@ -125,7 +126,7 @@ git diff --name-only
 | Round | Reviewer | Findings | Action |
 ```
 
-## §9 — Post-merge bookkeeping (tag and close only)
+## §9 - Post-merge bookkeeping (tag and close only)
 
 - Tag `<version>`
 - Issues auto-close via `Fixes #N`
@@ -135,7 +136,7 @@ git diff --name-only
 ### Checkpoint-failure comment (post verbatim)
 
 ```
-⛔ CHECKPOINT FAILED — <checkpoint name>
+⛔ CHECKPOINT FAILED - <checkpoint name>
 Expected: <expected value or condition>
 Actual:   <command output>
 Command:  <verbatim command>

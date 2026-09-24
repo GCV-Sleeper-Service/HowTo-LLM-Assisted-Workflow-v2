@@ -5,7 +5,7 @@ Treat the repository, the planning documents, and the last conversation as three
 ## 1. Environment (operator)
 
 - [ ] Every deployment target answers and reports the version last deployed to it (record each: name, address, version)
-- [ ] Toolchain at the pinned version; local patches/overrides still present (`--check` mode only — never re-apply blind)
+- [ ] Toolchain at the pinned version; local patches/overrides still present (`--check` mode only - never re-apply blind)
 - [ ] One no-op build of the primary target passes
 - [ ] Every agent platform connects (execution agent, inline reviewers, external reviewers)
 
@@ -25,7 +25,7 @@ Treat the repository, the planning documents, and the last conversation as three
 
 - [ ] Read it end to end, not the summary
 - [ ] List its deliverables (bundles, edit lists, closure commands, decisions)
-- [ ] Check each against §2; anything not landed is not done — including anything a memory note or summary says was done
+- [ ] Check each against §2; anything not landed is not done - including anything a memory note or summary says was done
 
 ## 5. Housekeeping PR (doc-only, coding agent)
 
@@ -33,4 +33,4 @@ Treat the repository, the planning documents, and the last conversation as three
 - [ ] Correct stale documents from §3; add superseding decision-log lines
 - [ ] Bump `Last verified` with the §1 results
 - [ ] Post-merge: close shipped-but-open issues, merge duplicate milestones
-- [ ] Only then dispatch the next code step — the lowest-risk one available
+- [ ] Only then dispatch the next code step - the lowest-risk one available

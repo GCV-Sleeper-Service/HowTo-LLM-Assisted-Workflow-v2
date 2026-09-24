@@ -1,4 +1,4 @@
-# Session handoff — <step id>
+# Session handoff - <step id>
 
 _Written inside PR #<previous step>; amend inside any later PR that changes these assumptions._
 
