@@ -68,6 +68,31 @@ printf '## Device testing (for Human)\t\n' > p.md
                                                               check "lint: baseline, line differs by trailing tab" 1 "$(lint --baseline HEAD p.md)"
                                                               check "lint: invalid baseline ref" 128 "$(lint --baseline nosuchref p.md)"
 
+# ---------- template integration: run the PRE-PR block exactly as the agent template gives it ----------
+TEMPLATE="$HERE/templates/agent-prompt.template.md"
+prepr_block() { # extract the PRE-PR bash block; adapt only what a local test repo needs
+  awk '/^### PRE-PR gate/{f=1;next} f&&/^```bash$/{c=1;next} c&&/^```$/{exit} c{print}' "$TEMPLATE" \
+    | sed 's|--target origin/main|--target main|; s|^<lint / preflight / full test suite>$|echo LATER_CHECK_RAN|'
+}
+integration_repo() { # scripts/scope-gate.py committed on main, then branch "step"
+  cd "$(mktemp -d)" && git init -q -b main . && git config user.name t && git config user.email t@t
+  printf 'a\n' > a.txt; printf 'c\n' > c.txt; mkdir scripts; cp "$GATE" scripts/scope-gate.py
+  git add -A && git commit -qm base && git checkout -qb step
+  prepr_block > "$(git rev-parse --git-path prepr.sh)"
+  # write the allowance file wherever the template's own --allowed argument points
+  local arg; arg=$(grep -oE -- '--allowed ("[^"]*"|[^ ]+)' "$(git rev-parse --git-path prepr.sh)" | head -1 | cut -d' ' -f2-)
+  eval "allowed_file=$arg"; printf 'a.txt\n' > "$allowed_file"
+}
+run_block() { # prints "<exit> <ran|stopped> <PASS|nopass>"
+  local out rc; out=$(bash "$(git rev-parse --git-path prepr.sh)" 2>&1); rc=$?
+  printf '%s %s %s\n' "$rc" "$(grep -q LATER_CHECK_RAN <<< "$out" && echo ran || echo stopped)" \
+    "$(grep -q 'PASS: every changed path is allowed' <<< "$out" && echo PASS || echo nopass)"
+}
+integration_repo; echo x >> a.txt
+check "template: valid change passes the PRE-PR block" "0 ran PASS" "$(run_block)"
+integration_repo; echo x >> c.txt
+check "template: failed gate stops the PRE-PR block" "1 stopped nopass" "$(run_block)"
+
 rm -f /tmp/allowed.$$
 echo "----"; echo "$pass passed, $fail failed"
 [[ $fail -eq 0 ]]

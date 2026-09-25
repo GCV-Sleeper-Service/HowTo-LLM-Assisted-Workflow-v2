@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.3.1 - 2026-09 (template integration fixes)
+
+Two defects in how the agent template called the scope gate, found by the v2.3 review and reproduced before fixing. The gate script itself was correct.
+
+- The list of allowed paths now lives inside `.git` (`git rev-parse --git-path scope-allowed.txt`), one bare path per line. Before, the template had the agent create `allowed-paths.txt` in the working tree, and the gate then reported that file itself as out of scope.
+- A failed gate now ends the PRE-PR block with the gate's exit code. Before, the block went on to the next command and could still exit 0.
+- `tests/run-tests.sh`: two integration cases that run the PRE-PR block extracted from the template itself, so the template and its test cannot drift apart. Both fail against v2.3; 31 cases pass.
+
 ## v2.3 - 2026-09 (follow-up review)
 
 Changes made in response to a follow-up review of v2.2 at `c776ada` (24 September 2026). Every finding was reproduced before being acted on. The main one was that v2.2 announced template fixes that were not in the commit.

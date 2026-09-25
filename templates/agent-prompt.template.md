@@ -55,7 +55,7 @@ grep -c '<symbol>' <file>
 
 ## §3 - Scope boundary
 
-Files you MAY modify (complete list; nothing else). Save this list as `allowed-paths.txt` - the PRE-PR gate reads it:
+Files you MAY modify (complete list; nothing else). Before the PRE-PR gate, write these paths to the file named by `git rev-parse --git-path scope-allowed.txt` - one bare repository-relative path per line, without bullets, backticks or notes. That file sits inside `.git`, so it is never part of the change:
 - `<path>`
 - <every file your version-bump / generator tooling touches, listed explicitly>
 - `<generated output>` - only by running `<generator command>`, never by hand
@@ -100,7 +100,8 @@ A checkpoint tests whether the world matches what this prompt assumed; the agent
 ### PRE-PR gate
 
 ```bash
-python3 scripts/scope-gate.py --allowed allowed-paths.txt --target origin/main
+python3 scripts/scope-gate.py --allowed "$(git rev-parse --git-path scope-allowed.txt)" --target origin/main \
+  || { rc=$?; echo "PRE-PR GATE FAILED (scope-gate exit $rc) - STOP"; exit "$rc"; }
 # Expected: PASS. It checks committed, staged, unstaged and untracked changes against §3;
 # an allowed file that did not change is fine. Anything else: STOP.
 <lint / preflight / full test suite>
